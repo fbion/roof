@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.message.dao">
+
+	<sql id="columns">
+		id, sender, receiver, type, topic, tags, event, sendtime,
+		createTime, sendtimes, priority, content, status, errormsg
+	</sql>
+	<sql id="vals">
+		#{id}, #{sender}, #{receiver}, #{type}, #{topic}, #{tags},
+		#{event}, #{sendTime}, #{createTime}, #{sendTimes}, #{priority},
+		#{content}, #{status}, #{errorMsg}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="sender != null and sender != ''">
+			and sender = #{sender}
+		</if>
+		<if test="receiver != null and receiver != ''">
+			and receiver = #{receiver}
+		</if>
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+		<if test="topic != null and topic != ''">
+			and topic = #{topic}
+		</if>
+		<if test="tags != null and tags != ''">
+			and tags = #{tags}
+		</if>
+		<if test="event != null and event != ''">
+			and event = #{event}
+		</if>
+		<if test="sendTime != null">
+			and sendtime = #{sendTime}
+		</if>
+		<if test="createTime != null">
+			and createTime = #{createTime}
+		</if>
+		<if test="sendTimes != null and sendTimes != ''">
+			and sendtimes = #{sendTimes}
+		</if>
+		<if test="priority != null and priority != ''">
+			and priority = #{priority}
+		</if>
+		<if test="content != null and content != ''">
+			and content = #{content}
+		</if>
+		<if test="status != null and status != ''">
+			and status = #{status}
+		</if>
+		<if test="errorMsg != null and errorMsg != ''">
+			and errormsg = #{errorMsg}
+		</if>
+	</sql>
+
+	<insert id="saveDefaultSendable" parameterType="org.roof.message.entity.DefaultSendable">
+		insert into t_sendable (
+		<include refid="columns" />
+		)
+		values (
+		<include refid="vals" />
+		)
+	</insert>
+
+	<delete id="deleteDefaultSendable">
+		delete from t_sendable
+		where id=#{id}
+	</delete>
+
+	<delete id="deleteByExampleDefaultSendable">
+		delete from t_sendable
+		where 1=1
+		<include refid="conds" />
+	</delete>
+
+	<select id="loadDefaultSendable" resultType="org.roof.message.entity.DefaultSendable">
+		select
+		<include refid="columns" />
+		from t_sendable
+		where id=#{id}
+	</select>
+
+	<select id="selectDefaultSendable" resultType="org.roof.message.entity.DefaultSendable">
+		select
+		<include refid="columns" />
+		from t_sendable
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateDefaultSendable">
+		update t_sendable
+		<set>
+			id=#{id},
+			sender=#{sender},
+			receiver=#{receiver},
+			type=#{type},
+			topic=#{topic},
+			tags=#{tags},
+			event=#{event},
+			sendtime=#{sendTime},
+			createTime=#{createTime},
+			sendtimes=#{sendTimes},
+			priority=#{priority},
+			content=#{content},
+			status=#{status},
+			errormsg=#{errorMsg}
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateIgnoreNullDefaultSendable">
+		update t_sendable
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="sender != null and sender != ''">
+				sender=#{sender},
+			</if>
+			<if test="receiver != null and receiver != ''">
+				receiver=#{receiver},
+			</if>
+			<if test="type != null and type != ''">
+				type=#{type},
+			</if>
+			<if test="topic != null and topic != ''">
+				topic=#{topic},
+			</if>
+			<if test="tags != null and tags != ''">
+				tags=#{tags},
+			</if>
+			<if test="event != null and event != ''">
+				event=#{event},
+			</if>
+			<if test="sendTime != null">
+				sendtime=#{sendTime},
+			</if>
+			<if test="createTime != null">
+				createTime=#{createTime},
+			</if>
+			<if test="sendTimes != null and sendTimes != ''">
+				sendtimes=#{sendTimes},
+			</if>
+			<if test="priority != null and priority != ''">
+				priority=#{priority},
+			</if>
+			<if test="content != null and content != ''">
+				content=#{content},
+			</if>
+			<if test="status != null and status != ''">
+				status=#{status},
+			</if>
+			<if test="errorMsg != null and errorMsg != ''">
+				errormsg=#{errorMsg}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateByExampleDefaultSendable">
+		update t_sendable
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="sender != null and sender != ''">
+				sender=#{sender},
+			</if>
+			<if test="receiver != null and receiver != ''">
+				receiver=#{receiver},
+			</if>
+			<if test="type != null and type != ''">
+				type=#{type},
+			</if>
+			<if test="topic != null and topic != ''">
+				topic=#{topic},
+			</if>
+			<if test="tags != null and tags != ''">
+				tags=#{tags},
+			</if>
+			<if test="event != null and event != ''">
+				event=#{event},
+			</if>
+			<if test="sendTime != null">
+				sendtime=#{sendTime},
+			</if>
+			<if test="createTime != null">
+				createTime=#{createTime},
+			</if>
+			<if test="sendTimes != null and sendTimes != ''">
+				sendtimes=#{sendTimes},
+			</if>
+			<if test="priority != null and priority != ''">
+				priority=#{priority},
+			</if>
+			<if test="content != null and content != ''">
+				content=#{content},
+			</if>
+			<if test="status != null and status != ''">
+				status=#{status},
+			</if>
+			<if test="errorMsg != null and errorMsg != ''">
+				errormsg=#{errorMsg}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.org.dao">
+
+	<sql id="columns">
+		id, name, lvl, seq, parent_id, leaf, usable
+	</sql>
+	<sql id="vals">
+		#{id}, #{name}, #{lvl}, #{seq}, #{parent_id}, #{leaf}, #{usable}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="lvl != null and lvl != ''">
+			and lvl = #{lvl}
+		</if>
+		<if test="seq != null and seq != ''">
+			and seq = #{seq}
+		</if>
+		<if test="parent_id != null and parent_id != ''">
+			and parent_id = #{parent_id}
+		</if>
+		<if test="leaf != null and leaf != ''">
+			and leaf = #{leaf}
+		</if>
+		<if test="usable != null and usable != ''">
+			and usable = #{usable}
+		</if>
+	</sql>
+
+	<insert id="saveOrganization" parameterType="org.roof.web.org.entity.Organization" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into s_organization (<include refid="columns" />) 
+		values (<include refid="vals" />)
+	</insert>
+
+	<delete id="deleteOrganization">
+		delete from s_organization
+		where id=#{id} 
+	</delete>
+
+	<delete id="deleteByExampleOrganization">
+		delete from s_organization
+		where 1=1
+		<include refid="conds" />
+	</delete>
+	
+	<select id="loadOrganization" resultType="org.roof.web.org.entity.Organization">
+		select 
+		<include refid="columns"/>
+		from s_organization
+		where id=#{id} 
+	</select>
+	
+	<select id="selectOrganization" resultType="org.roof.web.org.entity.Organization">
+		select 
+		<include refid="columns"/>
+		from s_organization
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateOrganization">
+		update s_organization
+		<set>
+			id=#{id}, 
+			name=#{name}, 
+			lvl=#{lvl}, 
+			seq=#{seq}, 
+			parent_id=#{parent_id}, 
+			leaf=#{leaf}, 
+			usable=#{usable}
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateIgnoreNullOrganization">
+		update s_organization
+		<set>
+		<if test="id != null and id != ''">
+			id=#{id}, 
+		</if>
+		<if test="name != null and name != ''">
+			name=#{name}, 
+		</if>
+		<if test="lvl != null and lvl != ''">
+			lvl=#{lvl}, 
+		</if>
+		<if test="seq != null and seq != ''">
+			seq=#{seq}, 
+		</if>
+		<if test="parent_id != null and parent_id != ''">
+			parent_id=#{parent_id}, 
+		</if>
+		<if test="leaf != null and leaf != ''">
+			leaf=#{leaf}, 
+		</if>
+		<if test="usable != null and usable != ''">
+			usable=#{usable}
+		</if>
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateByExampleOrganization">
+		update s_organization
+		<set>
+			<if test="id != null and id != ''">
+			id=#{id}, 
+			</if>
+			<if test="name != null and name != ''">
+			name=#{name}, 
+			</if>
+			<if test="lvl != null and lvl != ''">
+			lvl=#{lvl}, 
+			</if>
+			<if test="seq != null and seq != ''">
+			seq=#{seq}, 
+			</if>
+			<if test="parent_id != null and parent_id != ''">
+			parent_id=#{parent_id}, 
+			</if>
+			<if test="leaf != null and leaf != ''">
+			leaf=#{leaf}, 
+			</if>
+			<if test="usable != null and usable != ''">
+			usable=#{usable}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

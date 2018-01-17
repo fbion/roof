@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	
+	<bean name="mailSendJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.feinuo.fruit.job.MailSendJob" />
+		<property name="jobDataAsMap">
+			<util:map>
+				<entry key="times" value="150" />
+			</util:map>
+		</property>
+	</bean>
+
+	<bean id="mailSendJobCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="mailSendJob" />
+		<property name="cronExpression" value="0 0/30 1,6 * * ?" />
+<!-- 		<property name="cronExpression" value="0 0/30 1,6 * * ? " /> -->
+	</bean>
+
+	<!-- 	定时器触发 -->	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="mailSendJobCronTrigger" />
+			</list>
+		</property>
+		<property name="taskExecutor" ref="executor" />
+	</bean>
+	
+	<bean id="executor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
+		scope="singleton">
+		<property name="corePoolSize" value="256" />
+		<property name="maxPoolSize" value="516" />
+		<property name="keepAliveSeconds" value="120" />
+	</bean>
+
+</beans>

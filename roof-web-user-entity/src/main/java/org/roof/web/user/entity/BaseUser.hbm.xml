@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.roof.web.user.entity">
+	<class name="BaseUser" table="s_user" discriminator-value="BaseUser">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<discriminator column="dtype" type="string" />
+		<property name="username" />
+		<property name="password" />
+		<property name="accountNonExpired">
+			<column name="accountNonExpired" sql-type="char(1)" />
+		</property>
+		<property name="accountNonLocked">
+			<column name="accountNonLocked" sql-type="char(1)" />
+		</property>
+		<property name="credentialsNonExpired">
+			<column name="credentialsNonExpired" sql-type="char(1)" />
+		</property>
+		<property name="enabled">
+			<column name="enabled" sql-type="char(1)" />
+		</property>
+		<set name="roles" table="s_user_role_rel">
+			<key column="user_id" />
+			<many-to-many class="org.roof.web.role.entity.Role"
+				column="role_id" />
+		</set>
+		<subclass name="User" discriminator-value="User">
+			<property name="name" />
+			<property name="create_date">
+				<column name="create_date" sql-type="datetime" />
+			</property>
+			<property name="update_time">
+				<column name="update_time" sql-type="datetime" />
+			</property>
+			<property name="login_count" />
+			<many-to-one name="org" column="org_id"
+				class="org.roof.web.org.entity.Organization" />
+		</subclass>
+	</class>
+</hibernate-mapping>

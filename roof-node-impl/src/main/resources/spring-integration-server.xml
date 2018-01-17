@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:int-redis="http://www.springframework.org/schema/integration/redis"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/integration
+   http://www.springframework.org/schema/integration/spring-integration.xsd
+   http://www.springframework.org/schema/integration/twitter
+   http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+   http://www.springframework.org/schema/integration/stream
+   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+   http://www.springframework.org/schema/integration/jdbc
+   http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+   http://www.springframework.org/schema/integration/redis
+   http://www.springframework.org/schema/integration/redis/spring-integration-redis.xsd">
+
+	<int-redis:inbound-channel-adapter
+		channel="channel1" topics="dic" connection-factory="jredisConnectionFactory"
+		serializer="jdkSerializationRedisSerializer" /><!-- redis subscribe channel: 
+		从redis订阅消息写出到指定的channel, channel="channel1" 写出的channel, topics="dic"订阅的主题, 
+		connection-factory="jredisConnectionFactory" redis的连接工厂,serializer="jdkSerializationRedisSerializer" 
+		序列化 -->
+	<int:channel id="channel1" /> <!-- output channel: 将redis接收的消息 写入该channel -->
+	<int:splitter input-channel="channel1" output-channel="channel3"> <!-- 消息拆分器: 将消息拆分,供后序channel处理 input-channel="channel1"输入通道, output-channel="channel3"输出通道 -->
+		<bean class="org.roof.node.integration.PageMessageSplitter" />
+	</int:splitter>
+	<int:channel id="channel3" /><!-- 输出通道 -->
+	<int:outbound-channel-adapter ref="witer_channel_adapter" channel="channel3"></int:outbound-channel-adapter>
+	
+	<bean id="witer_channel_adapter"
+		class="org.roof.node.service.DataMessageHandler">
+		<constructor-arg index="0" ref="dataSource" />
+		<property name="insertSql" value="insert into t_collection_data_hi (collection_code, dev_code, proprietor_dev_code, 
+		index_code, monitor_time, collection_time, collection_data, alarm_code ) 
+		values (:payload[collection_code], :payload[dev_code], :payload[proprietor_dev_code], 
+		:payload[index_code], :payload[monitor_time], :payload[collection_time], 
+		:payload[collection_data], :payload[alarm_code] )"/>
+		<property name="updateSql" value="update t_collection_data set collection_code=:payload[collection_code] , proprietor_dev_code=:payload[proprietor_dev_code] , monitor_time = :payload[monitor_time] , collection_time = :payload[collection_time] , collection_data=:payload[collection_data] , alarm_code= :payload[alarm_code] where dev_code=:payload[dev_code] and index_code=:payload[index_code]"/>
+		<property name="initUpdateSql" value="insert into t_collection_data (collection_code, dev_code, proprietor_dev_code, 
+		index_code, monitor_time, collection_time, collection_data, alarm_code ) 
+		values (:payload[collection_code], :payload[dev_code], :payload[proprietor_dev_code], 
+		:payload[index_code], :payload[monitor_time], :payload[collection_time], 
+		:payload[collection_data], :payload[alarm_code] )"/>
+	</bean>
+
+	<!-- 告警数据写入 -->
+	<int-redis:inbound-channel-adapter
+		channel="channel2" topics="alarm" connection-factory="jredisConnectionFactory"
+		serializer="jdkSerializationRedisSerializer"></int-redis:inbound-channel-adapter>
+	<int:channel id="channel2"></int:channel>
+	<int:splitter input-channel="channel2" output-channel="channel4">
+		<bean class="org.roof.node.integration.PageMessageSplitter" />
+	</int:splitter>
+	<int:channel id="channel4"></int:channel>
+	<int-jdbc:outbound-channel-adapter
+		channel="channel4" data-source="dataSource"
+		query="insert into t_alarm 
+	(code, 
+	dev_code, 
+	collection_code, 
+	room_code, 
+	dev_name, 
+	proprietor_dev_code, 
+	alarm_time,
+	user_id,
+	alarm_info,
+	collection_code2,
+	index_code,
+	remarks,
+	deal_time,
+	alarm_source
+	)
+	values
+	(:payload[code], 
+	:payload[dev_code], 
+	:payload[collection_code], 
+	:payload[room_code], 
+	:payload[dev_name], 
+	:payload[proprietor_dev_code], 
+	:payload[alarm_time],
+	:payload[user_id],
+	:payload[alarm_info],
+	:payload[collection_code2],
+	:payload[index_code],
+	:payload[remarks],
+	:payload[deal_time],
+	:payload[alarm_source]
+	)" />
+</beans>

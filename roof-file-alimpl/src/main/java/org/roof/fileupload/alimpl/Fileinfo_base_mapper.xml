@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.fileupload.impl.dao">
+
+	<sql id="columns">
+		id, name, displayName, fileSize, realPath, webPath, type
+	</sql>
+	<sql id="vals">
+		#{id}, #{name}, #{displayName}, #{fileSize}, #{realPath}, #{webPath}, #{type}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="displayName != null and displayName != ''">
+			and displayName = #{displayName}
+		</if>
+		<if test="fileSize != null and fileSize != ''">
+			and fileSize = #{fileSize}
+		</if>
+		<if test="realPath != null and realPath != ''">
+			and realPath = #{realPath}
+		</if>
+		<if test="webPath != null and webPath != ''">
+			and webPath = #{webPath}
+		</if>
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+	</sql>
+
+	<insert id="saveSimpleFileInfo" parameterType="org.roof.fileupload.impl.SimpleFileInfo" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into s_fileinfo (<include refid="columns" />) 
+		values (<include refid="vals" />)
+	</insert>
+
+	<delete id="deleteSimpleFileInfo">
+		delete from s_fileinfo
+		where id=#{id} 
+	</delete>
+
+	<delete id="deleteByExampleSimpleFileInfo">
+		delete from s_fileinfo
+		where 1=1
+		<include refid="conds" />
+	</delete>
+	
+	<select id="loadSimpleFileInfo" resultType="org.roof.fileupload.impl.SimpleFileInfo">
+		select 
+		<include refid="columns"/>
+		from s_fileinfo
+		where id=#{id} 
+	</select>
+	
+	<select id="selectSimpleFileInfo" resultType="org.roof.fileupload.impl.SimpleFileInfo">
+		select 
+		<include refid="columns"/>
+		from s_fileinfo
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateSimpleFileInfo">
+		update s_fileinfo
+		<set>
+			id=#{id}, 
+			name=#{name}, 
+			displayName=#{displayName}, 
+			fileSize=#{fileSize}, 
+			realPath=#{realPath}, 
+			webPath=#{webPath}, 
+			type=#{type}
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateIgnoreNullSimpleFileInfo">
+		update s_fileinfo
+		<set>
+		<if test="id != null and id != ''">
+			id=#{id}, 
+		</if>
+		<if test="name != null and name != ''">
+			name=#{name}, 
+		</if>
+		<if test="displayName != null and displayName != ''">
+			displayName=#{displayName}, 
+		</if>
+		<if test="fileSize != null and fileSize != ''">
+			fileSize=#{fileSize}, 
+		</if>
+		<if test="realPath != null and realPath != ''">
+			realPath=#{realPath}, 
+		</if>
+		<if test="webPath != null and webPath != ''">
+			webPath=#{webPath}, 
+		</if>
+		<if test="type != null and type != ''">
+			type=#{type}
+		</if>
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateByExampleSimpleFileInfo">
+		update s_fileinfo
+		<set>
+			<if test="id != null and id != ''">
+			id=#{id}, 
+			</if>
+			<if test="name != null and name != ''">
+			name=#{name}, 
+			</if>
+			<if test="displayName != null and displayName != ''">
+			displayName=#{displayName}, 
+			</if>
+			<if test="fileSize != null and fileSize != ''">
+			fileSize=#{fileSize}, 
+			</if>
+			<if test="realPath != null and realPath != ''">
+			realPath=#{realPath}, 
+			</if>
+			<if test="webPath != null and webPath != ''">
+			webPath=#{webPath}, 
+			</if>
+			<if test="type != null and type != ''">
+			type=#{type}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

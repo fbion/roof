@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.dictionary.dao.impl.DictionaryDao">
+	<select id="query" parameterType="java.util.Map"
+		resultType="org.roof.web.dictionary.entity.Dictionary">
+		select * from s_dictionary where 1=1
+		<if test="type != null">
+			and type = #{type}
+		</if>
+		<if test="val != null">
+			and upper(val) like '%' ||
+			upper(#{val}) || '%'
+		</if>
+		<if test="text != null">
+			and upper(text) like '%' ||
+			upper(#{text}) || '%'
+		</if>
+		<if test="exp1 != null">
+			and upper(exp1) like '%' ||
+			upper(#{exp1}) || '%'
+		</if>
+		<if test="exp2 != null">
+			and upper(exp2) like '%' ||
+			upper(#{exp2}) || '%'
+		</if>
+		<if test="active != null">
+			and active = #{active}
+		</if>
+		<![CDATA[
+			order by seq,id
+		]]>
+	</select>
+
+	<select id="queryEq" parameterType="java.util.Map"
+		resultType="org.roof.web.dictionary.entity.Dictionary">
+		select * from s_dictionary where 1=1
+		<if test="type != null">
+			and type = #{type}
+		</if>
+		<if test="val != null">
+			and upper(val) = upper(#{val})
+		</if>
+		<if test="text != null">
+			and upper(text) = upper(#{text})
+		</if>
+		<if test="exp1 != null">
+			and upper(exp1) = upper(#{exp1})
+		</if>
+		<if test="exp2 != exp2">
+			and upper(exp2) = upper(#{exp2})
+		</if>
+		<if test="active != null">
+			and active = #{active}
+		</if>
+		<![CDATA[
+			order by seq,id
+		]]>
+	</select>
+
+	<select id="findChildrenCount" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(1) from s_dictionary where 1=1
+		<if test="type != null">
+			and type = #{type}
+		</if>
+	</select>
+</mapper>

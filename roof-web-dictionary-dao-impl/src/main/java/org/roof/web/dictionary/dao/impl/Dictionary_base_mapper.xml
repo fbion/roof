@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.dictionary.dao">
+
+	<sql id="columns">
+		id, type, val, text, seq, active, description,exp1,exp2
+	</sql>
+	<sql id="vals">
+		#{id}, #{type}, #{val}, #{text}, #{seq}, #{active}, #{description},#{exp1},#{exp2}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+		<if test="val != null and val != ''">
+			and val = #{val}
+		</if>
+		<if test="text != null and text != ''">
+			and text = #{text}
+		</if>
+		<if test="seq != null and seq != ''">
+			and seq = #{seq}
+		</if>
+		<if test="active != null and active != ''">
+			and active = #{active}
+		</if>
+		<if test="description != null and description != ''">
+			and description = #{description}
+		</if>
+		<if test="exp1 != null and exp1 != ''">
+			and exp1 = #{exp1}
+		</if>
+		<if test="exp2 != null and exp2 != ''">
+			and exp1 = #{exp1}
+		</if>
+	</sql>
+
+	<insert id="saveDictionary" parameterType="org.roof.web.dictionary.entity.Dictionary" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into s_dictionary (<include refid="columns" />) 
+		values (<include refid="vals" />)
+	</insert>
+
+	<delete id="deleteDictionary">
+		delete from s_dictionary
+		where id=#{id} 
+	</delete>
+
+	<delete id="deleteByExampleDictionary">
+		delete from s_dictionary
+		where 1=1
+		<include refid="conds" />
+	</delete>
+	
+	<select id="loadDictionary" resultType="org.roof.web.dictionary.entity.Dictionary">
+		select 
+		<include refid="columns"/>
+		from s_dictionary
+		where id=#{id} 
+	</select>
+	
+	<select id="selectDictionary" resultType="org.roof.web.dictionary.entity.Dictionary">
+		select 
+		<include refid="columns"/>
+		from s_dictionary
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateDictionary">
+		update s_dictionary
+		<set>
+			id=#{id}, 
+			type=#{type}, 
+			val=#{val}, 
+			text=#{text}, 
+			seq=#{seq}, 
+			active=#{active}, 
+			description=#{description}
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateIgnoreNullDictionary">
+		update s_dictionary
+		<set>
+		<if test="id != null and id != ''">
+			id=#{id}, 
+		</if>
+		<if test="type != null and type != ''">
+			type=#{type}, 
+		</if>
+		<if test="val != null and val != ''">
+			val=#{val}, 
+		</if>
+		<if test="text != null and text != ''">
+			text=#{text}, 
+		</if>
+		<if test="seq != null and seq != ''">
+			seq=#{seq}, 
+		</if>
+		<if test="active != null and active != ''">
+			active=#{active}, 
+		</if>
+		<if test="exp1 != null and exp1 != ''">
+			exp1=#{exp1},
+		</if>
+		<if test="exp2 != null and exp2 != ''">
+			exp2=#{exp2},
+		</if>
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateByExampleDictionary">
+		update s_dictionary
+		<set>
+			<if test="id != null and id != ''">
+			id=#{id}, 
+			</if>
+			<if test="type != null and type != ''">
+			type=#{type}, 
+			</if>
+			<if test="val != null and val != ''">
+			val=#{val}, 
+			</if>
+			<if test="text != null and text != ''">
+			text=#{text}, 
+			</if>
+			<if test="seq != null and seq != ''">
+			seq=#{seq}, 
+			</if>
+			<if test="active != null and active != ''">
+			active=#{active}, 
+			</if>
+			<if test="description != null and description != ''">
+			description=#{description},
+			</if>
+			<if test="exp1 != null and exp1 != ''">
+			exp1=#{exp1},
+			</if>
+			<if test="exp2 != null and exp2 != ''">
+			exp2=#{exp2}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

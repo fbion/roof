@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.creator">
+
+	<select id="executeSqlMap" parameterType="java.util.Map" resultType="java.util.Map">
+		${paramSQL}
+	</select>
+
+	<select id="executeSqlList" parameterType="java.util.Map" resultType="java.lang.String">
+		${paramSQL}
+	</select>
+
+</mapper>

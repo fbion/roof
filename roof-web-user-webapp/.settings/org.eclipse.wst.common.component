@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="roof-web-user-webapp">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="roof-commons-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-commons/roof-commons">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-service-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-service-api/roof-web-user-service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-dataaccess-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-dataaccess-api/roof-dataaccess-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-entity-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-entity/roof-web-user-entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-org-entity-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-org-entity/roof-web-org-entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-dao-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-dao-api/roof-web-user-dao-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-spring-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-spring/roof-spring">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="roof-web-user-webapp"/>
+        <property name="java-output-path" value="/roof-web-user-webapp/target/classes"/>
+    </wb-module>
+</project-modules>

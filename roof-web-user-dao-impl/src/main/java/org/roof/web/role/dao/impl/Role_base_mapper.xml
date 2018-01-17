@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.role.dao">
+
+	<sql id="columns">
+		id, dtype, name, create_date, description
+	</sql>
+	<sql id="vals">
+		#{id}, #{dtype}, #{name}, #{create_date}, #{description}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="dtype != null and dtype != ''">
+			and dtype = #{dtype}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="create_date != null">
+			and create_date = #{create_date}
+		</if>
+		<if test="description != null and description != ''">
+			and description = #{description}
+		</if>
+	</sql>
+
+	<insert id="saveRole" parameterType="org.roof.web.role.entity.Role" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into s_role (<include refid="columns" />) 
+		values (<include refid="vals" />)
+	</insert>
+
+	<delete id="deleteRole">
+		delete from s_role
+		where id=#{id} 
+	</delete>
+
+	<delete id="deleteByExampleRole">
+		delete from s_role
+		where 1=1
+		<include refid="conds" />
+	</delete>
+	
+	<select id="loadRole" resultType="org.roof.web.role.entity.Role">
+		select 
+		<include refid="columns"/>
+		from s_role
+		where id=#{id} 
+	</select>
+	
+	<select id="selectRole" resultType="org.roof.web.role.entity.Role">
+		select 
+		<include refid="columns"/>
+		from s_role
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateRole">
+		update s_role
+		<set>
+			id=#{id}, 
+			dtype=#{dtype}, 
+			name=#{name}, 
+			create_date=#{create_date}, 
+			description=#{description}
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateIgnoreNullRole">
+		update s_role
+		<set>
+		<if test="id != null and id != ''">
+			id=#{id}, 
+		</if>
+		<if test="dtype != null and dtype != ''">
+			dtype=#{dtype}, 
+		</if>
+		<if test="name != null and name != ''">
+			name=#{name}, 
+		</if>
+		<if test="create_date != null">
+			create_date=#{create_date}, 
+		</if>
+		<if test="description != null and description != ''">
+			description=#{description}
+		</if>
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateByExampleRole">
+		update s_role
+		<set>
+			<if test="id != null and id != ''">
+			id=#{id}, 
+			</if>
+			<if test="dtype != null and dtype != ''">
+			dtype=#{dtype}, 
+			</if>
+			<if test="name != null and name != ''">
+			name=#{name}, 
+			</if>
+			<if test="create_date != null">
+			create_date=#{create_date}, 
+			</if>
+			<if test="description != null and description != ''">
+			description=#{description}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

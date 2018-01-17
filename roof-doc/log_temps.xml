@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="java" deleted="false" description="" enabled="true" name="logger_debug">if (LOG.isDebugEnabled()) {&#13;
+			LOG.debug(${message}${cursor});&#13;
+		}</template><template autoinsert="true" context="java" deleted="false" description="" enabled="true" name="logger_declare">${imp:import(org.apache.log4j.Logger)}&#13;
+private static final Logger LOG = Logger.getLogger(${enclosing_type}.class);&#13;
+</template><template autoinsert="true" context="java" deleted="false" description="" enabled="true" name="logger_error">LOG.error(${message}${cursor});</template><template autoinsert="true" context="java" deleted="false" description="" enabled="true" name="logger_info">if (LOG.isInfoEnabled()) {&#13;
+			LOG.info(${message}${cursor});&#13;
+		}</template></templates>

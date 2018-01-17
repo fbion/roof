@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.role.dao">
+	<sql id="columnsAs">
+		t1.id, t1.dtype, t1.name, t1.create_date, t1.description
+	</sql>
+
+	<select id="selectRolePage" resultType="org.roof.web.role.entity.Role">
+		select
+		<include refid="columnsAs" />
+		from
+		s_role t1
+		join
+		(SELECT
+		id
+		from
+		s_role
+		where 1=1
+		<include refid="conds" />
+		order by id
+		limit #{firstrownum}, #{limit}) t2
+		where
+		t1.id =
+		t2.id
+	</select>
+
+	<select id="selectRoleCount" resultType="java.lang.Long">
+		select
+		count(id)
+		from s_role
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<select id="selectByResource" parameterType="java.lang.Long"
+		resultType="org.roof.web.role.entity.BaseRole">
+		select a.* from s_role a,s_role_resource_rel b where
+		a.id=b.role_id and b.resource_id = #{resId}
+	</select>
+
+	<select id="selectByUser" parameterType="java.lang.Long"
+		resultType="org.roof.web.role.entity.Role">
+		select
+		<include refid="columnsAs" />
+		from
+		s_user_role_rel t2 left join s_role t1 on t1.id = t2.role_id
+		where
+		t2.user_id = #{user_id}
+	</select>
+
+	<select id="list" parameterType="org.roof.web.role.entity.Role"
+		resultType="org.roof.web.role.entity.Role">
+		select
+		<include refid="columns" />
+		from s_role where 1=1
+		<if test="name != null and name != ''">
+			and name like CONCAT('%','${name}','%' )
+		</if>
+		order by create_date desc
+		limit #{firstrownum}, #{limit}
+	</select>
+	<select id="list_count" parameterType="org.roof.web.role.entity.Role"
+		resultType="java.lang.Long">
+		select count(1) from s_role where 1=1
+		<if test="name != null and name != ''">
+			and name like CONCAT('%','${name}','%' )
+		</if>
+	</select>
+	<select id="listVo" resultType="org.roof.web.role.entity.Role">
+		select
+		<include refid="columns" />
+		from s_role
+		where
+		1=1
+		<if test="name != null"> and name like '%'||#{name}||'%'</if>
+		order by create_date desc
+	</select>
+	<delete id="clearResources" parameterType="java.lang.Long">
+		delete from
+		s_role_resource_rel where role_id =
+		#{roleId}
+	</delete>
+	<insert id="addResources" parameterType="java.util.Map">
+		insert into
+		s_role_resource_rel(role_id, resource_id) values(#{roleId},
+		#{resourceId})
+	</insert>
+	<delete id="removeResouce" parameterType="java.util.Map">
+		delete from
+		s_role_resource_rel where role_id =
+		#{roleId} and resource_id =
+		#{resourceId}
+	</delete>
+	<select id="existRoleResource" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select
+		count(resource_id) from s_role_resource_rel where
+		role_id =
+		#{roleId}
+		and resource_id =
+		#{resourceId}
+	</select>
+</mapper>

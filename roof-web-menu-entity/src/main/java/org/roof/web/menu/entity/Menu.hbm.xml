@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.roof.web.menu.entity">
+	<class name="Menu" table="s_menu" discriminator-value="Menu">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<discriminator column="dtype" type="string" />
+		<property name="name" />
+		<property name="lvl" />
+		<property name="leaf">
+			<column name="leaf" sql-type="char(1)" />
+		</property>
+		<many-to-one name="parent" column="parent_id"
+			class="org.roof.web.menu.entity.Menu" />
+		<bag name="children" inverse="true" lazy="true" cascade="all"
+			order-by="id asc">
+			<key column="parent_id" not-null="true" />
+			<one-to-many class="org.roof.web.menu.entity.Menu" />
+		</bag>
+		<many-to-one name="module" column="module_id"
+			class="org.roof.web.resource.entity.Module" />
+		<property name="target" />
+		<property name="menuType">
+			<column name="menuType" length="20" not-null="true" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">org.roof.web.menu.entity.MenuType</param>
+				<param name="type">12</param>
+			</type>
+		</property>
+		<property name="script" />
+		<property name="icon" />
+		<property name="seq" />
+	</class>
+</hibernate-mapping>

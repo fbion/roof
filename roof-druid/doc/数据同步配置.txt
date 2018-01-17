@@ -1,0 +1,29 @@
+1.在数据源配置数据更新监听过滤器
+	<bean id="update-event-filter" class="org.roof.druid.events.UpdateEventFilter">
+		<property name="includeTables">
+			<array>
+				<map>
+					<entry key="tableName" value="s_dictionary" /><!-- 表名 -->
+					<entry key="idProperty" value="id" /><!-- 表id字段名 -->
+				</map>
+			</array>
+		</property>
+		<property name="messageChannel" ref="dbUpdateEventChannel"/><!-- 发布更新事件的通道 -->
+	</bean>
+2.druid数据源配置过滤器
+	<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+				<ref bean="wall-filter" />
+				<ref bean="update-event-filter" />
+			</list>
+	</property>
+3.配置发布通道和监听通道,见: spring-update-event.xml
+4.实现 org.springframework.messaging.MessageHandler编写监听处理
+	<bean id="synDataUpdateEventMessageHandler" class="org.roof.druid.handler.SynDataUpdateEventMessageHandler">
+		<property name="dataSources"><!-- 需要同步的数据源 -->
+			<array>
+			</array>
+			</property>
+		</bean>
+	</beans>

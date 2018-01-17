@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.log.dao">
+
+	<sql id="columns">
+		id, ip, login_time, stat, username, errorMsg
+	</sql>
+	<sql id="vals">
+		#{id}, #{ip}, #{login_time}, #{stat}, #{username}, #{errorMsg}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="ip != null and ip != ''">
+			and ip = #{ip}
+		</if>
+		<if test="login_time != null">
+			and login_time = #{login_time}
+		</if>
+		<if test="stat != null and stat != ''">
+			and stat = #{stat}
+		</if>
+		<if test="username != null and username != ''">
+			and username = #{username}
+		</if>
+		<if test="errorMsg != null and errorMsg != ''">
+			and errorMsg = #{errorMsg}
+		</if>
+	</sql>
+
+	<insert id="saveLoginLog" parameterType="org.roof.web.log.entity.LoginLog" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into s_login_log (<include refid="columns" />) 
+		values (<include refid="vals" />)
+	</insert>
+
+	<delete id="deleteLoginLog">
+		delete from s_login_log
+		where id=#{id} 
+	</delete>
+
+	<delete id="deleteByExampleLoginLog">
+		delete from s_login_log
+		where 1=1
+		<include refid="conds" />
+	</delete>
+
+	<update id="updateLoginLog">
+		update s_login_log
+		<set>
+			id=#{id}, 
+			ip=#{ip}, 
+			login_time=#{login_time}, 
+			stat=#{stat}, 
+			username=#{username}, 
+			errorMsg=#{errorMsg}
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateIgnoreNullLoginLog">
+		update s_login_log
+		<set>
+		<if test="id != null and id != ''">
+			id=#{id}, 
+		</if>
+		<if test="ip != null and ip != ''">
+			ip=#{ip}, 
+		</if>
+		<if test="login_time != null">
+			login_time=#{login_time}, 
+		</if>
+		<if test="stat != null and stat != ''">
+			stat=#{stat}, 
+		</if>
+		<if test="username != null and username != ''">
+			username=#{username}, 
+		</if>
+		<if test="errorMsg != null and errorMsg != ''">
+			errorMsg=#{errorMsg}
+		</if>
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateByExampleLoginLog">
+		update s_login_log
+		<set>
+			<if test="id != null and id != ''">
+			id=#{id}, 
+			</if>
+			<if test="ip != null and ip != ''">
+			ip=#{ip}, 
+			</if>
+			<if test="login_time != null">
+			login_time=#{login_time}, 
+			</if>
+			<if test="stat != null and stat != ''">
+			stat=#{stat}, 
+			</if>
+			<if test="username != null and username != ''">
+			username=#{username}, 
+			</if>
+			<if test="errorMsg != null and errorMsg != ''">
+			errorMsg=#{errorMsg}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_qb8akM37EdqwVrslYOdUDA" name="uml">
+  <packagedElement xmi:type="uml:Package" xmi:id="_jG7t8IHHEeCp2IcdFl-FQQ" name="java">
+    <packagedElement xmi:type="uml:Package" xmi:id="_jG7t8YHHEeCp2IcdFl-FQQ" name="util">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_jHYZ4IHHEeCp2IcdFl-FQQ" name="Iterator"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_jHYZ4YHHEeCp2IcdFl-FQQ" name="Map"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_qFZU6IHHEeCp2IcdFl-FQQ" name="IExcelDao"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_S6wk2IHIEeCp2IcdFl-FQQ" name="AbstractJdbcDao" clientDependency="_abS-FYHIEeCp2IcdFl-FQQ" isAbstract="true">
+    <interfaceRealization xmi:id="_abS-FYHIEeCp2IcdFl-FQQ" name="InterfaceRealization1" supplier="_qFZU6IHHEeCp2IcdFl-FQQ" client="_S6wk2IHIEeCp2IcdFl-FQQ" contract="_qFZU6IHHEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_bxIvqIHIEeCp2IcdFl-FQQ" name="AbstractIbatisDao" clientDependency="_ieNElIHIEeCp2IcdFl-FQQ" isAbstract="true">
+    <interfaceRealization xmi:id="_ieNElIHIEeCp2IcdFl-FQQ" name="InterfaceRealization1" supplier="_qFZU6IHHEeCp2IcdFl-FQQ" client="_bxIvqIHIEeCp2IcdFl-FQQ" contract="_qFZU6IHHEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_pLteaIHIEeCp2IcdFl-FQQ" name="MysqlJdbcDao">
+    <generalization xmi:id="_6a3SA4HIEeCp2IcdFl-FQQ" general="_S6wk2IHIEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ssD_uIHIEeCp2IcdFl-FQQ" name="OracleJdbcDao">
+    <generalization xmi:id="_61WOlIHIEeCp2IcdFl-FQQ" general="_S6wk2IHIEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_4BoJyIHIEeCp2IcdFl-FQQ" name="IbatisDao">
+    <generalization xmi:id="_78wik4HIEeCp2IcdFl-FQQ" general="_bxIvqIHIEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_jcRp0IHdEeCp2IcdFl-FQQ" name="IDatabaseReader"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_pU0xkIHdEeCp2IcdFl-FQQ" name="JdbcDatabaseReader" clientDependency="_5fbX9YHdEeCp2IcdFl-FQQ">
+    <interfaceRealization xmi:id="_5fbX9YHdEeCp2IcdFl-FQQ" name="InterfaceRealization1" supplier="_jcRp0IHdEeCp2IcdFl-FQQ" client="_pU0xkIHdEeCp2IcdFl-FQQ" contract="_jcRp0IHdEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uOz_UIHdEeCp2IcdFl-FQQ" name="IbatisDatabaseReader" clientDependency="_6A5tU4HdEeCp2IcdFl-FQQ">
+    <interfaceRealization xmi:id="_6A5tU4HdEeCp2IcdFl-FQQ" name="InterfaceRealization1" supplier="_jcRp0IHdEeCp2IcdFl-FQQ" client="_uOz_UIHdEeCp2IcdFl-FQQ" contract="_jcRp0IHdEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_AgV1-IHeEeCp2IcdFl-FQQ" name="IDatabaseWriter"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_BFiNuIHeEeCp2IcdFl-FQQ" name="IbatisDatabaseWriter" clientDependency="_CIzolYHeEeCp2IcdFl-FQQ">
+    <interfaceRealization xmi:id="_CIzolYHeEeCp2IcdFl-FQQ" name="InterfaceRealization1" supplier="_AgV1-IHeEeCp2IcdFl-FQQ" client="_BFiNuIHeEeCp2IcdFl-FQQ" contract="_AgV1-IHeEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_BfIZcIHeEeCp2IcdFl-FQQ" name="JdbcDatabaseWriter" clientDependency="_C8V-VIHeEeCp2IcdFl-FQQ">
+    <interfaceRealization xmi:id="_C8V-VIHeEeCp2IcdFl-FQQ" name="InterfaceRealization1" supplier="_AgV1-IHeEeCp2IcdFl-FQQ" client="_BfIZcIHeEeCp2IcdFl-FQQ" contract="_AgV1-IHeEeCp2IcdFl-FQQ"/>
+  </packagedElement>
+</uml:Model>

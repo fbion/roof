@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.menu.dao">
+	<select id="findMenuByParent" parameterType="java.util.Map"
+		resultType="org.roof.web.menu.entity.Menu">
+		select
+		<include refid="org.roof.web.menu.dao.columns" />
+		from s_menu m
+		where 1=1
+		<if test="parentId != null">
+			and m.parent_id = #{parentId}
+		</if>
+		<if test="lvl != null">
+			and m.lvl = #{lvl}
+		</if>
+		<if test="menuType != null">
+			and m.menuType = #{menuType}
+		</if>
+		order by m.seq,m.id
+	</select>
+
+	<select id="childrenCount" parameterType="java.lang.Long"
+		resultType="java.lang.Long">
+		select count(1) from
+		s_menu where parent_id = #{parentId}
+	</select>
+
+	<select id="selectByModule" parameterType="java.util.Map"
+		resultType="org.roof.web.menu.entity.Menu">
+		select
+		<include refid="org.roof.web.menu.dao.columns" />
+		from s_menu m ,s_resource r
+		where m.module_id = r.id
+		<if test="modules != null and modules.size() != 0">
+			and m.module_id in
+			<foreach collection="modules" item="mId" index="index" open="("
+				close=")" separator=",">
+				#{mId}
+			</foreach>
+		</if>
+		<if test="menuType != null">
+			and m.menuType = #{menuType}
+		</if>
+		order by m.seq
+	</select>
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.roof.web.role.entity">
+	<class name="BaseRole" table="s_role" discriminator-value="BaseRole">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<discriminator column="dtype" type="string" />
+		<property name="name" />
+		<set name="resources" table="s_s_role_resource_rel">
+			<key column="role_id" />
+			<many-to-many class="org.roof.web.resource.entity.Resource"
+				column="resource_id" />
+		</set>
+		<subclass name="Role" discriminator-value="Role">
+			<property name="create_date">
+				<column name="create_date" sql-type="datetime" />
+			</property>
+			<property name="description" />
+		</subclass>
+	</class>
+</hibernate-mapping>

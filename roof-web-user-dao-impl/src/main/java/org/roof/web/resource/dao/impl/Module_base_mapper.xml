@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.resource.dao">
+	<sql id="columnsModule">
+		id, dtype, name, pattern, description, identify, path, seq,
+		lvl, parent_id as 'parent.id', leaf
+	</sql>
+	<sql id="columnsInsertModule">
+		id, dtype, name, pattern, description, identify, path, seq,
+		lvl, parent_id, leaf
+	</sql>
+	<sql id="valsModule">
+		#{id}, #{dtype}, #{name}, #{pattern}, #{description},
+		#{identify}, #{path}, #{seq}, #{lvl}, #{parent.id}, #{leaf}
+	</sql>
+	<sql id="condsModule">
+		<if test="id != null">
+			and id = #{id}
+		</if>
+		<if test="dtype != null and dtype != ''">
+			and dtype = #{dtype}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="pattern != null and pattern != ''">
+			and pattern = #{pattern}
+		</if>
+		<if test="description != null and description != ''">
+			and description = #{description}
+		</if>
+		<if test="identify != null and identify != ''">
+			and identify = #{identify}
+		</if>
+		<if test="path != null and path != ''">
+			and path = #{path}
+		</if>
+		<if test="seq != null">
+			and seq = #{seq}
+		</if>
+		<if test="lvl != null">
+			and lvl = #{lvl}
+		</if>
+		<if test="parent != null and parent.id != null">
+			and parent_id = #{parent.id}
+		</if>
+		<if test="leaf != null">
+			and leaf = #{leaf}
+		</if>
+	</sql>
+	<insert id="saveModule" parameterType="org.roof.web.resource.entity.Module"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into s_resource (
+		<include refid="columnsInsertModule" />
+		)
+		values (
+		<include refid="valsModule" />
+		)
+	</insert>
+
+	<delete id="deleteModule">
+		delete from s_resource
+		where id=#{id}
+	</delete>
+
+	<delete id="deleteByExampleModule">
+		delete from s_resource
+		where 1=1
+		<include refid="condsModule" />
+	</delete>
+
+	<select id="loadModule" resultType="org.roof.web.resource.entity.Module">
+		select
+		<include refid="columnsModule" />
+		from s_resource
+		where id=#{id}
+	</select>
+
+	<select id="selectModule" resultType="org.roof.web.resource.entity.Module">
+		select
+		<include refid="columnsModule" />
+		from s_resource
+		where 1=1
+		<include refid="condsModule" />
+	</select>
+
+	<update id="updateModule">
+		update s_resource
+		<set>
+			id=#{id},
+			name=#{name},
+			pattern=#{pattern},
+			description=#{description},
+			identify=#{identify},
+			path=#{path},
+			seq=#{seq},
+			lvl=#{lvl},
+			parent_id=#{parent.id},
+			leaf=#{leaf}
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateIgnoreNullModule">
+		update s_resource
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="dtype != null and dtype != ''">
+				dtype=#{dtype},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="pattern != null and pattern != ''">
+				pattern=#{pattern},
+			</if>
+			<if test="description != null and description != ''">
+				description=#{description},
+			</if>
+			<if test="identify != null and identify != ''">
+				identify=#{identify},
+			</if>
+			<if test="path != null and path != ''">
+				path=#{path},
+			</if>
+			<if test="seq != null">
+				seq=#{seq},
+			</if>
+			<if test="lvl != null">
+				lvl=#{lvl},
+			</if>
+			<if test="parent != null and parent.id != null">
+				parent_id=#{parent.id},
+			</if>
+			<if test="leaf != null">
+				leaf=#{leaf},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateByExampleModule">
+		update s_resource
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="dtype != null and dtype != ''">
+				dtype=#{dtype},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="pattern != null and pattern != ''">
+				pattern=#{pattern},
+			</if>
+			<if test="description != null and description != ''">
+				description=#{description},
+			</if>
+			<if test="identify != null and identify != ''">
+				identify=#{identify},
+			</if>
+			<if test="path != null and path != ''">
+				path=#{path},
+			</if>
+			<if test="seq != null">
+				seq=#{seq},
+			</if>
+			<if test="lvl != null">
+				lvl=#{lvl},
+			</if>
+			<if test="parent != null and parent.id != null">
+				parent_id=#{parent.id},
+			</if>
+			<if test="leaf != null">
+				leaf=#{leaf},
+			</if>
+		</set>
+		where 1=1
+		<include refid="condsModule" />
+	</update>
+
+</mapper>

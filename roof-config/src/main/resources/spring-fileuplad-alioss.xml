@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean name="fileManager" class="org.roof.fileupload.impl.SimpleFileManager">
+		<property name="fileService" ref="fileService" />
+		<property name="fileInfoService" ref="fileInfoService" />
+	</bean>
+	<bean name="fileService" class="org.roof.fileupload.alimpl.AliOssFileService">
+		<property name="accessKey" value="T8eM34CFSJUtMLhx" />
+		<property name="accessKeySecret" value="dn0CYgYker26TSXBD5HxCnhfPubF68" />
+		<property name="ossEndpoint" value="oss-cn-beijing.aliyuncs.com"></property>
+		<property name="bucketName" value="crm-dev-public" />
+		<property name="webPathGenerator">
+			<bean class="org.roof.fileupload.impl.ConstantPathGenerator">
+				<property name="path" value="electro-license/" />
+			</bean>
+		</property>
+	</bean>
+	<bean name="fileInfoService" class="org.roof.fileupload.alimpl.JdbcFileInfoService">
+		<property name="fileNameGenerator">
+			<bean class="org.roof.fileupload.impl.UuidFileNameGenerator" />
+		</property>
+		<property name="fileTypeGenerator">
+			<bean class="org.roof.fileupload.impl.MappingFileTypeGenerator">
+				<property name="fileTypeMapping">
+					<map>
+						<entry key=".jpg" value="image/jpeg" />
+					</map>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+</beans>

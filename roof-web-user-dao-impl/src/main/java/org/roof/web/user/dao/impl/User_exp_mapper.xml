@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.user.dao">
+	<sql id="columnsAs">
+		t1.id, t1.username, t1.password, t1.accountNonExpired,
+		t1.accountNonLocked, t1.credentialsNonExpired, t1.enabled, t1.name,
+		t1.create_date, t1.update_time, t1.login_count, t1.org_id as 'org.id'
+	</sql>
+
+	<select id="selectUserPage" resultType="org.roof.web.user.entity.User">
+		select
+		<include refid="columnsAs" />
+		, t3.name as 'org.name'
+		from
+		s_user t1
+		join
+		(SELECT
+		id
+		from
+		s_user
+		where 1=1
+		<include refid="conds" />
+		order by id
+		limit #{firstrownum}, #{limit}) t2 left join s_organization
+		t3 on t1.org_id = t3.id
+		where t1.id = t2.id
+	</select>
+
+	<select id="selectUserCount" resultType="java.lang.Long">
+		select
+		count(id)
+		from s_user
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<select id="selectUserRoleCount" resultType="java.lang.Long">
+		select
+		count(role_id)
+		from
+		s_user_role_rel
+		where user_id = #{userId}
+	</select>
+
+	<insert id="addUserRole" parameterType="java.util.Map">
+		insert into
+		s_user_role_rel(user_id, role_id) values(#{userId}, #{roleId})
+	</insert>
+
+	<delete id="clearUserRole" parameterType="java.lang.Long">
+		delete from
+		s_user_role_rel where user_id = #{userId}
+	</delete>
+</mapper>

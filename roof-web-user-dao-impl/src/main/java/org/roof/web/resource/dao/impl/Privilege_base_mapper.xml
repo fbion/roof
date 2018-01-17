@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.resource.dao">
+
+	<sql id="columns">
+		id, dtype, name, pattern, description, identify, path, seq,
+		lvl, parent_id as 'parent.id', leaf, returnExample, remark, format
+	</sql>
+	<sql id="columnsInsert">
+		id, dtype, name, pattern, description, identify, path, seq,
+		lvl, parent_id, leaf, returnExample, remark, format
+	</sql>
+	<sql id="vals">
+		#{id}, #{dtype}, #{name}, #{pattern}, #{description},
+		#{identify}, #{path}, #{seq}, #{lvl}, #{parent.id}, #{leaf},
+		#{returnExample}, #{remark}, #{format}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="dtype != null and dtype != ''">
+			and dtype = #{dtype}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="pattern != null and pattern != ''">
+			and pattern = #{pattern}
+		</if>
+		<if test="description != null and description != ''">
+			and description = #{description}
+		</if>
+		<if test="identify != null and identify != ''">
+			and identify = #{identify}
+		</if>
+		<if test="path != null and path != ''">
+			and path = #{path}
+		</if>
+		<if test="seq != null">
+			and seq = #{seq}
+		</if>
+		<if test="lvl != nul">
+			and lvl = #{lvl}
+		</if>
+		<if test="parent != null and parent.id != null">
+			and parent_id = #{parent.id}
+		</if>
+		<if test="leaf != null">
+			and leaf = #{leaf}
+		</if>
+		<if test="returnExample != null and returnExample != ''">
+			and returnExample = #{returnExample}
+		</if>
+		<if test="remark != null and remark != ''">
+			and remark = #{remark}
+		</if>
+		<if test="format != null and format != ''">
+			and format = #{format}
+		</if>
+	</sql>
+
+	<insert id="savePrivilege" parameterType="org.roof.web.resource.entity.Privilege"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into s_resource (
+		<include refid="columnsInsert" />
+		)
+		values (
+		<include refid="vals" />
+		)
+	</insert>
+
+	<delete id="deletePrivilege">
+		delete from s_resource
+		where id=#{id}
+	</delete>
+
+	<delete id="deleteByExamplePrivilege">
+		delete from s_resource
+		where 1=1
+		<include refid="conds" />
+	</delete>
+
+	<select id="loadPrivilege" resultType="org.roof.web.resource.entity.Privilege">
+		select
+		<include refid="columns" />
+		from s_resource
+		where id=#{id}
+	</select>
+
+	<select id="selectPrivilege" resultType="org.roof.web.resource.entity.Privilege">
+		select
+		<include refid="columns" />
+		from s_resource
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updatePrivilege">
+		update s_resource
+		<set>
+			id=#{id},
+			name=#{name},
+			pattern=#{pattern},
+			description=#{description},
+			identify=#{identify},
+			path=#{path},
+			seq=#{seq},
+			lvl=#{lvl},
+			parent_id=#{parent.id},
+			leaf=#{leaf},
+			returnExample=#{returnExample},
+			remark=#{remark},
+			format=#{format}
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateIgnoreNullPrivilege">
+		update s_resource
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="dtype != null and dtype != ''">
+				dtype=#{dtype},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="pattern != null and pattern != ''">
+				pattern=#{pattern},
+			</if>
+			<if test="description != null and description != ''">
+				description=#{description},
+			</if>
+			<if test="identify != null and identify != ''">
+				identify=#{identify},
+			</if>
+			<if test="path != null and path != ''">
+				path=#{path},
+			</if>
+			<if test="seq != null">
+				seq=#{seq},
+			</if>
+			<if test="lvl != null">
+				lvl=#{lvl},
+			</if>
+			<if test="parent != null and parent.id != null">
+				parent_id=#{parent.id},
+			</if>
+			<if test="leaf != null">
+				leaf=#{leaf},
+			</if>
+			<if test="returnExample != null and returnExample != ''">
+				returnExample=#{returnExample},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark=#{remark},
+			</if>
+			<if test="format != null and format != ''">
+				format=#{format},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateByExamplePrivilege">
+		update s_resource
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="dtype != null and dtype != ''">
+				dtype=#{dtype},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="pattern != null and pattern != ''">
+				pattern=#{pattern},
+			</if>
+			<if test="description != null and description != ''">
+				description=#{description},
+			</if>
+			<if test="identify != null and identify != ''">
+				identify=#{identify},
+			</if>
+			<if test="path != null and path != ''">
+				path=#{path},
+			</if>
+			<if test="seq != null">
+				seq=#{seq},
+			</if>
+			<if test="lvl != null">
+				lvl=#{lvl},
+			</if>
+			<if test="parent != null and parent.id != null">
+				parent_id=#{parent.id},
+			</if>
+			<if test="leaf != null">
+				leaf=#{leaf},
+			</if>
+			<if test="returnExample != null and returnExample != ''">
+				returnExample=#{returnExample},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark=#{remark},
+			</if>
+			<if test="format != null and format != ''">
+				format=#{format},
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

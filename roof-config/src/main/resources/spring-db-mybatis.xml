@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/jdbc 
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="redisDruidDataSourceStatLogger" class="org.roof.druid.RedisDruidDataSourceStatLogger">
+		<constructor-arg index="0" ref="redisTemplate" />
+	</bean>
+
+	<bean id="dataSource" class="org.roof.druid.StatDruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbcDriver}" />
+		<property name="url" value="${jdbcUrl}" />
+		<property name="username" value="${jdbcUser}" />
+		<property name="password" value="${jdbcPassword}" />
+		<property name="maxActive" value="${connectionPoolMaxSize}" />
+		<property name="initialSize" value="${connectionPoolInitialSize}" />
+		<property name="minIdle" value="${connectionPoolMinIdle}" />
+		<property name="maxWait" value="${connectionPoolMaxWait}" />
+		<property name="filters" value="stat,log4j" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'z'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="statLogger" ref="redisDruidDataSourceStatLogger" />
+		<property name="timeBetweenLogStatsMillis" value="10000" />
+	</bean>
+
+	<!-- 数据源事物管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- jdbc 模板 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="namedParameterjdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg index="0" ref="dataSource" />
+	</bean>
+
+	<!-- mybatis 配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:/**/*_mapper.xml</value>
+				<value>classpath:**/*_mapper.xml</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="roofDaoSupport" class="org.roof.dataaccess.RoofDaoSupport">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+	<bean id="pageQueryFactory" class="org.roof.dataaccess.DefaultPageQueryFactory">
+		<property name="daoSupport" ref="roofDaoSupport" />
+	</bean>
+
+</beans>

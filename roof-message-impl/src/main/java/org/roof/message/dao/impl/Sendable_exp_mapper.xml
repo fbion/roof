@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.message.dao">
+	<sql id="columnsAs">
+		t1.id, t1.sender, t1.receiver, t1.type, t1.topic, t1.tags,
+		t1.event, t1.sendtime, t1.createtime, t1.sendtimes, t1.priority,
+		t1.content, t1.status, t1.errormsg
+	</sql>
+
+	<select id="selectDefaultSendablePage" resultType="org.roof.message.entity.DefaultSendable">
+		select
+		<include refid="columnsAs" />
+		from
+		t_sendable t1
+		join
+		(SELECT
+		id
+		from
+		t_sendable
+		where 1=1
+		<!-- 排序字段 默认主键 -->
+		<if test="symbol != null and orderByVal != null">
+			and id ${symbol} #{orderByVal}
+		</if>
+		<include refid="conds" />
+		order by id ${orderByType}
+		limit #{skipRow}, #{limit}) t2
+		where t1.id =
+		t2.id
+	</select>
+
+	<select id="selectDefaultSendableCount" resultType="java.lang.Long">
+		select
+		count(id)
+		from t_sendable
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="memcachedClientFactoryBean" class="net.spy.memcached.spring.MemcachedClientFactoryBean">
+		<property name="protocol" value="BINARY" />
+		<property name="authDescriptor" ref="authDescriptor" />
+		<property name="servers"
+			value="ac459c1526dd4a0d.m.cnbjalicm12pub001.ocs.aliyuncs.com:11211" />
+	</bean>
+	<bean id="authDescriptor" class="net.spy.memcached.auth.AuthDescriptor">
+		<constructor-arg index="0">
+			<array>
+				<value>PLAIN</value>
+			</array>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<bean class="net.spy.memcached.auth.PlainCallbackHandler">
+				<constructor-arg index="0" value="ac459c1526dd4a0d" />
+				<constructor-arg index="1" value="Dtt12345678" />
+			</bean>
+		</constructor-arg>
+	</bean>
+</beans>

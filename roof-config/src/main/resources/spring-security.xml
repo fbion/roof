@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	<!-- 拦截排除列表 -->
+	<http pattern="/codeAction/image.action*" security="none" />
+	<http pattern="/userAction/goLogin.action*" security="none" />
+	<http pattern="/userAction/login.json*" security="none" />
+	<http pattern="/common/js/fort_awesome/font/*" request-matcher="ant"
+		security="none" />
+	<http pattern="/**/*.jsp" request-matcher="ant" security="none" />
+	<http pattern="/**/*.css" request-matcher="ant" security="none" />
+	<http pattern="/**/*.js" request-matcher="ant" security="none" />
+	<http pattern=".+[.](png$|jpg$|gif$|PNG$|JPG$|GIF$|xml$|xls$)"
+		request-matcher="regex" security="none" />
+
+	<http auto-config="true" use-expressions="true" pattern="/**/dw_web*"
+		access-denied-page="/err.jsp" security="none">
+	</http>
+
+	<!-- 权限名称必须以 ROLE_ 开头 -->
+	<http auto-config="true" use-expressions="true" pattern="/**"
+		access-denied-page="/err.jsp">
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+		<logout logout-success-url="/staffAction/goLogin.action"
+			logout-url="/systemAction/j_spring_security_logout" delete-cookies="JSESSIONID" />
+		<form-login login-page="/userAction/goLogin.action"
+			authentication-failure-handler-ref="authenticationFailureHandler"
+			authentication-success-handler-ref="authenticationSuccessHandler" />
+	</http>
+
+
+	<beans:bean id="authenticationFailureHandler"
+		class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/userAction/goLogin.action" />
+		<beans:property name="useForward" value="true" />
+		<beans:property name="exceptionMappings">
+			<beans:map>
+				<beans:entry
+					key="org.springframework.security.authentication.BadCredentialsException"
+					value="/userAction/goLogin.action?errorCode=BadCredentials" />
+			</beans:map>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="authenticationSuccessHandler"
+		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/userAction/goMain.action" />
+	</beans:bean>
+
+	<beans:bean id="filterSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+	</beans:bean>
+	<!-- <beans:bean id="accessDecisionManager" class="org.roof.security.service.BaseAccessDecisionManager"> 
+		</beans:bean> -->
+	<beans:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:constructor-arg index="0">
+			<util:list>
+				<beans:bean class="org.springframework.security.access.vote.RoleVoter" />
+			</util:list>
+		</beans:constructor-arg>
+	</beans:bean>
+	<beans:bean id="securityMetadataSource"
+		class="org.roof.web.user.service.impl.InvocationSecurityMetadataSourceService"
+		scope="prototype">
+		<beans:property name="resourceDao" ref="resourceDao" />
+		<beans:property name="cacheManager" ref="cacheManager" />
+		<beans:property name="cachName"
+			value="InvocationSecurityMetadataSourceService#loadResourceDefine" />
+		<beans:property name="roleDao" ref="roleDao" />
+	</beans:bean>
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsService" />
+	</authentication-manager>
+	<beans:bean id="userDetailsService"
+		class="org.roof.web.user.service.impl.UserDetailsServiceImpl">
+		<beans:property name="userDao" ref="userDao" />
+		<beans:property name="roleDao" ref="roleDao"/>
+	</beans:bean>
+	<!-- <beans:bean id="userDetailsService" class="org.roof.security.service.DefaultRolesUserDetailsService"> 
+		<beans:property name="hibernateTemplate" ref="hibernateTemplate" /> <beans:property 
+		name="roofDaoSupport" ref="roofDaoSupport" /> <beans:property name="roleIds"> 
+		<beans:array> <beans:value>${core.loginuser}</beans:value> </beans:array> 
+		</beans:property> </beans:bean> -->
+
+</beans:beans>

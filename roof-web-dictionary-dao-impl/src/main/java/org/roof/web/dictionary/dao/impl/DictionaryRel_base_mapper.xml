@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.dictionary.dao.DictionaryRelDao">
+
+	<sql id="columns">
+		id, className, tableName, propertyName, entityId, dicId
+	</sql>
+	<sql id="vals">
+		#{id}, #{className}, #{tableName}, #{propertyName},
+		#{entityId}, #{dicId}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="className != null and className != ''">
+			and className = #{className}
+		</if>
+		<if test="tableName != null and tableName != ''">
+			and tableName = #{tableName}
+		</if>
+		<if test="propertyName != null and propertyName != ''">
+			and propertyName = #{propertyName}
+		</if>
+		<if test="entityId != null and entityId != ''">
+			and entityId = #{entityId}
+		</if>
+		<if test="dicId != null and dicId != ''">
+			and dicId = #{dicId}
+		</if>
+	</sql>
+
+	<insert id="saveDictionaryRel" parameterType="org.roof.web.dictionary.entity.DictionaryRel"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into ${thisTableName} (
+		<include refid="columns" />
+		)
+		values (
+		<include refid="vals" />
+		)
+	</insert>
+
+	<delete id="deleteDictionaryRel">
+		delete from ${thisTableName}
+		where id=#{id}
+	</delete>
+
+	<delete id="deleteByExampleDictionaryRel">
+		delete from ${thisTableName}
+		where 1=1
+		<include refid="conds" />
+	</delete>
+
+	<select id="loadDictionaryRel" resultType="org.roof.web.dictionary.entity.DictionaryRel">
+		select
+		<include refid="columns" />
+		from ${thisTableName}
+		where id=#{id}
+	</select>
+
+	<select id="selectDictionaryRel" resultType="org.roof.web.dictionary.entity.DictionaryRel">
+		select
+		<include refid="columns" />
+		from ${thisTableName}
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateDictionaryRel">
+		update ${thisTableName}
+		<set>
+			id=#{id},
+			className=#{className},
+			tableName=#{tableName},
+			propertyName=#{propertyName},
+			entityId=#{entityId},
+			dicId=#{dicId}
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateIgnoreNullDictionaryRel">
+		update ${thisTableName}
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="className != null and className != ''">
+				className=#{className},
+			</if>
+			<if test="tableName != null and tableName != ''">
+				tableName=#{tableName},
+			</if>
+			<if test="propertyName != null and propertyName != ''">
+				propertyName=#{propertyName},
+			</if>
+			<if test="entityId != null and entityId != ''">
+				entityId=#{entityId},
+			</if>
+			<if test="dicId != null and dicId != ''">
+				dicId=#{dicId}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateByExampleDictionaryRel">
+		update ${thisTableName}
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="className != null and className != ''">
+				className=#{className},
+			</if>
+			<if test="tableName != null and tableName != ''">
+				tableName=#{tableName},
+			</if>
+			<if test="propertyName != null and propertyName != ''">
+				propertyName=#{propertyName},
+			</if>
+			<if test="entityId != null and entityId != ''">
+				entityId=#{entityId},
+			</if>
+			<if test="dicId != null and dicId != ''">
+				dicId=#{dicId}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.menu.dao">
+
+	<sql id="columns">
+		id, name, lvl, leaf, parent_id as "parent.id", module_id as
+		"module.id", target, menuType, script, icon, seq, dtype
+	</sql>
+	<sql id="columnsInsert">
+		id, name, lvl, leaf, parent_id,module_id,
+		target, menuType,
+		script, icon, seq, dtype
+	</sql>
+	<sql id="vals">
+		#{id}, #{name}, #{lvl}, #{leaf}, #{parent.id},
+		#{module.id}, #{target}, #{menuType}, #{script}, #{icon}, #{seq},
+		#{dtype}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="lvl != null ">
+			and lvl = #{lvl}
+		</if>
+		<if test="leaf != null">
+			and leaf = #{leaf}
+		</if>
+		<if test="parent != null and parent.id != null">
+			and parent_id = #{parent.id}
+		</if>
+		<if test="module != null and module.id != null">
+			and module_id = #{module.id}
+		</if>
+		<if test="target != null and target != ''">
+			and target = #{target}
+		</if>
+		<if test="menuType != null and menuType != ''">
+			and menuType = #{menuType}
+		</if>
+		<if test="script != null and script != ''">
+			and script = #{script}
+		</if>
+		<if test="icon != null and icon != ''">
+			and icon = #{icon}
+		</if>
+		<if test="seq != null">
+			and seq = #{seq}
+		</if>
+		<if test="dtype != null and dtype != ''">
+			and dtype = #{dtype}
+		</if>
+	</sql>
+
+	<insert id="saveMenu" parameterType="org.roof.web.menu.entity.Menu"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into s_menu (
+		<include refid="columnsInsert" />
+		)
+		values (
+		<include refid="vals" />
+		)
+	</insert>
+
+	<delete id="deleteMenu">
+		delete from s_menu
+		where id=#{id}
+	</delete>
+
+	<delete id="deleteByExampleMenu">
+		delete from s_menu
+		where 1=1
+		<include refid="conds" />
+	</delete>
+
+	<select id="loadMenu" resultType="org.roof.web.menu.entity.Menu">
+		select
+		<include refid="columns" />
+		from s_menu
+		where id=#{id}
+	</select>
+
+	<select id="selectMenu" resultType="org.roof.web.menu.entity.Menu">
+		select
+		<include refid="columns" />
+		from s_menu
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateMenu">
+		update s_menu
+		<set>
+			id=#{id},
+			name=#{name},
+			lvl=#{lvl},
+			leaf=#{leaf},
+			parent_id=#{parent.id},
+			module_id=#{module.id},
+			target=#{target},
+			menuType=#{menuType},
+			script=#{script},
+			icon=#{icon},
+			seq=#{seq},
+			dtype=#{dtype}
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateIgnoreNullMenu">
+		update s_menu
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="lvl != null">
+				lvl=#{lvl},
+			</if>
+			<if test="leaf != null">
+				leaf=#{leaf},
+			</if>
+			<if test="parent != null and parent.id != null">
+				parent_id=#{parent.id},
+			</if>
+			<if test="module != null and module.id != null">
+				module_id=#{module.id},
+			</if>
+			<if test="target != null and target != ''">
+				target=#{target},
+			</if>
+			<if test="menuType != null">
+				menuType=#{menuType},
+			</if>
+			<if test="script != null and script != ''">
+				script=#{script},
+			</if>
+			<if test="icon != null and icon != ''">
+				icon=#{icon},
+			</if>
+			<if test="seq != null">
+				seq=#{seq},
+			</if>
+			<if test="dtype != null and dtype != ''">
+				dtype=#{dtype}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateByExampleMenu">
+		update s_menu
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name},
+			</if>
+			<if test="lvl != null">
+				lvl=#{lvl},
+			</if>
+			<if test="leaf != null">
+				leaf=#{leaf},
+			</if>
+			<if test="parent != null andparent.id != null">
+				parent_id=#{parent.id},
+			</if>
+			<if test="module != null and module.id != ''">
+				module_id=#{module.id},
+			</if>
+			<if test="target != null and target != ''">
+				target=#{target},
+			</if>
+			<if test="menuType != null and menuType != ''">
+				menuType=#{menuType},
+			</if>
+			<if test="script != null and script != ''">
+				script=#{script},
+			</if>
+			<if test="icon != null and icon != ''">
+				icon=#{icon},
+			</if>
+			<if test="seq != null">
+				seq=#{seq},
+			</if>
+			<if test="dtype != null and dtype != ''">
+				dtype=#{dtype}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="tool_auto_exp">
+
+	<!-- 生成实体类SQL语句 -->
+	<select id="tool_auto_exp_find_columns_from_table"
+		resultClass="org.roof.excel.vo.Field"
+		parameterClass="java.lang.String">
+		<![CDATA[ 
+ 			SELECT 'private '|| DECODE(o.DATA_TYPE,'DATE','java.util.Date','CHAR','java.lang.String',
+                        'NUMBER','java.lang.Long','CLOB','java.lang.String', 'FLOAT','java.lang.Float',
+                        'VARCHAR2','java.lang.String',' none ') ||' ' || LOWER(o.COLUMN_NAME)||';'|| '// ' || b.COMMENTS
+                         as "stateMent" ,LOWER(o.COLUMN_NAME) as "fieldName",o.DATA_TYPE as "dbType",
+                         DECODE(o.DATA_TYPE,'DATE','java.util.Date','CHAR','java.lang.String',
+                        'NUMBER','java.lang.Long','CLOB','java.lang.String', 'FLOAT','java.lang.Float',
+                        'VARCHAR2','java.lang.String',' none ') as "fieldType",b.COMMENTS as "fieldDisplay"
+			FROM USER_TAB_COLUMNS o,USER_COL_COMMENTS b
+			WHERE o.COLUMN_NAME = b.COLUMN_NAME
+			and o.TABLE_NAME = UPPER(#table_name#)
+			and b.TABLE_NAME = UPPER(#table_name#)
+			order by (o.COLUMN_NAME) asc
+		]]>
+	</select>
+	
+	<!-- 获得当前表的主键 -->
+	<select id="tool_auto_exp_find_primarykey_from_table"
+		resultClass="java.lang.String" parameterClass="java.lang.String">
+		<![CDATA[ 
+ 			select LOWER(cu.column_name) as "primaryKey" from user_cons_columns cu, user_constraints au 
+ 			where cu.constraint_name = au.constraint_name
+		    and au.constraint_type = 'P'
+		    and au.table_name = UPPER(#table_name#)
+		]]>
+	</select>
+
+	<!-- 获得当前表的外键关系 -->
+	<select id="tool_auto_exp_find_relation_from_table"
+		resultClass="org.roof.excel.vo.Relation"
+		parameterClass="java.util.Map">
+		<![CDATA[ 
+			select LOWER(b.table_name) "primaryTable",
+			LOWER(b.column_name) "primaryCol",
+			LOWER(a.table_name) "foreignTable",
+			LOWER(a.column_name) "foreignCol"
+			from (select a.constraint_name,
+                       b.table_name,
+                       b.column_name,
+                       a.r_constraint_name
+          from user_constraints a, user_cons_columns b
+         where a.constraint_type = 'R'
+           and a.constraint_name = b.constraint_name) a,
+       (select Distinct a.r_constraint_name, b.table_name, b.column_name
+          from user_constraints a, user_cons_columns b
+         where a.constraint_type = 'R'
+           and a.r_constraint_name = b.constraint_name) b
+		where a.r_constraint_name = b.r_constraint_name
+		and a.table_name = UPPER(#tableName#)
+		]]>
+		<isNotEmpty prepend="and" property="scope">
+			<![CDATA[ 
+				b.table_name in 
+			]]>
+			<iterate property="scope" open="(" close=")" conjunction=",">
+				<![CDATA[ #scope[]# ]]>
+			</iterate>
+		</isNotEmpty>
+	</select>
+
+	<!-- 获得当前表的描述 -->
+	<select id="tool_auto_exp_find_table_display_from_table"
+		resultClass="java.lang.String" parameterClass="java.lang.String">
+		<![CDATA[ 
+ 			select t.comments from user_tab_comments t where t.table_name = UPPER(#table_name#)
+		]]>
+	</select>
+
+	<!-- 获得当前库的所有用户表 -->
+	<select id="tool_auto_exp_find_user_all_tables"
+		resultClass="java.lang.String" parameterClass="java.lang.String">
+		<![CDATA[ 
+ 			select table_name from user_all_tables order by table_name
+		]]>
+	</select>
+
+	<!-- 执行DML或DDL语句 -->
+	<statement id="tool_auto_exp_execute_statement"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		$sql$
+	</statement>
+
+</sqlMap>

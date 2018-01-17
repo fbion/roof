@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.color.mail.faillog.dao">
+	<sql id="columnsAs">
+		t1.id, t1.mail, t1.mail_id, t1.msg, t1.create_time
+	</sql>
+
+	<select id="selectFailLogPage" resultType="org.color.mail.faillog.entity.FailLogVo">
+		select
+		<include refid="columnsAs"/>
+		from
+		t_fail_log t1
+		join
+		(SELECT
+		id
+		from
+		t_fail_log
+		where 1=1
+		<!-- 排序字段 默认主键 -->
+		<if test="symbol != null and orderByVal != null">
+			and id ${symbol} #{orderByVal}
+		</if>
+		<include refid="conds" />
+		order by id ${orderByType}
+		limit #{skipRow}, #{limit}) t2
+		where t1.id = t2.id
+	</select>
+	
+	<select id="selectFailLogCount" resultType="java.lang.Long">
+		select
+		count(id)
+		from t_fail_log
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+</mapper>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<bean id="impprodbreakDb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="id" />
+					<property name="title" value="系统ID" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="subject" />
+					<property name="title" value="题材" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="prod_name" />
+					<property name="title" value="作品名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="prod_type" />
+					<property name="title" value="作品类别" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="E" />
+					<property name="dbcol" value="cp_name" />
+					<property name="title" value="客户名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="F" />
+					<property name="dbcol" value="demand_area" />
+					<property name="title" value="需求地区" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="G" />
+					<property name="dbcol" value="auth_terri_desc" />
+					<property name="title" value="授权地域" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="H" />
+					<property name="dbcol" value="level_name" />
+					<property name="title" value="等级" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="I" />
+					<property name="dbcol" value="valid_period" />
+					<property name="title" value="有效期" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="J" />
+					<property name="dbcol" value="language" />
+					<property name="title" value="语言" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="K" />
+					<property name="dbcol" value="auth_property" />
+					<property name="title" value="权利性质" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="L" />
+					<property name="dbcol" value="unit" />
+					<property name="title" value="单位" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="M" />
+					<property name="dbcol" value="scale" />
+					<property name="title" value="规格（部数）" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="N" />
+					<property name="dbcol" value="unit_price" />
+					<property name="title" value="单价" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="O" />
+					<property name="dbcol" value="no_of_episodes" />
+					<property name="title" value="集数" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="P" />
+					<property name="dbcol" value="user_pro" />
+					<property name="title" value="用户属性" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="Q" />
+					<property name="dbcol" value="estimated_traffic" />
+					<property name="title" value="预估流量" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="R" />
+					<property name="dbcol" value="estimated_cost" />
+					<property name="title" value="预计费用" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="S" />
+					<property name="dbcol" value="estimiated_revenue" />
+					<property name="title" value="预估收入" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="T" />
+					<property name="dbcol" value="dep_in_charge" />
+					<property name="title" value="负责部门" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="U" />
+					<property name="dbcol" value="person_in_charge" />
+					<property name="title" value="负责人" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="V" />
+					<property name="dbcol" value="estimated_pur_time" />
+					<property name="title" value="预计采购时间" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="W" />
+					<property name="dbcol" value="at_pur_amount" />
+					<property name="title" value="版权采购额(含税)" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="X" />
+					<property name="dbcol" value="bt_pur_amount" />
+					<property name="title" value="版权采购额(不含税)" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="Y" />
+					<property name="dbcol" value="directors" />
+					<property name="title" value="导演" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="Z" />
+					<property name="dbcol" value="screen_writers" />
+					<property name="title" value="编剧" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="AA" />
+					<property name="dbcol" value="actors" />
+					<property name="title" value="主演" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="AB" />
+					<property name="dbcol" value="estimated_plat" />
+					<property name="title" value="预计发行平台" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="AC" />
+					<property name="dbcol" value="exempt_plat" />
+					<property name="title" value="版权方保留平台" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="AD" />
+					<property name="dbcol" value="month" />
+					<property name="title" value="月份" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="AE" />
+					<property name="dbcol" value="quarter" />
+					<property name="title" value="季度" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="exportPointIncomeExpenses" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="deal_time" />
+					<property name="title" value="日期" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="store_name" />
+					<property name="title" value="门店" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="username" />
+					<property name="title" value="会员账号" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="clerk_name" />
+					<property name="title" value="店员" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="E" />
+					<property name="dbcol" value="income_expenses_type" />
+					<property name="title" value="业务类型" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="F" />
+					<property name="dbcol" value="result" />
+					<property name="title" value="业务详情" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="G" />
+					<property name="dbcol" value="points" />
+					<property name="title" value="九洲豆数量" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="H" />
+					<property name="dbcol" value="point_type_id_" />
+					<property name="title" value="九洲豆种类" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="I" />
+					<property name="dbcol" value="total_money" />
+					<property name="title" value="付款总金额" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="J" />
+					<property name="dbcol" value="point_money" />
+					<property name="title" value="抵扣金额" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="K" />
+					<property name="dbcol" value="real_money" />
+					<property name="title" value="实付金额" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="L" />
+					<property name="dbcol" value="is_drawback_" />
+					<property name="title" value="是否退款" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

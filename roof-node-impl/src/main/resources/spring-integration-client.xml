@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:int-redis="http://www.springframework.org/schema/integration/redis"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/integration
+   http://www.springframework.org/schema/integration/spring-integration.xsd
+   http://www.springframework.org/schema/integration/twitter
+   http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+   http://www.springframework.org/schema/integration/stream
+   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+   http://www.springframework.org/schema/integration/jdbc
+   http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+   http://www.springframework.org/schema/integration/redis
+   http://www.springframework.org/schema/integration/redis/spring-integration-redis.xsd">
+
+	<int:channel id="toDicRedisOutChannel" /><!-- 输出channel:读取数据后通过该channel写出数据 -->
+	<int-redis:outbound-channel-adapter
+		topic="dic" connection-factory="jredisConnectionFactory" serializer="jdkSerializationRedisSerializer"
+		channel="toDicRedisOutChannel"><!-- redis publish channel:将输出的数据发布到redis提供订阅者订阅, topic="dic" 发布的主题, 
+			connection-factory="jredisConnectionFactory" redis连接工厂在spring-redis.xml中定义 
+			, serializer="jdkSerializationRedisSerializer" 序列化在spring-redis.xml中定义, channel="toDicRedisOutChannel" 
+			输入channel -->
+	</int-redis:outbound-channel-adapter>
+
+	<!-- 告警 -->
+	<int:channel id="alarmChanel" /><!-- 输出channel:读取数据后通过该channel写出数据 -->
+	<int-redis:outbound-channel-adapter
+		topic="alarm" connection-factory="jredisConnectionFactory" serializer="jdkSerializationRedisSerializer"
+		channel="alarmChanel"><!-- redis publish channel:将输出的数据发布到redis提供订阅者订阅, topic="dic" 发布的主题, 
+			connection-factory="jredisConnectionFactory" redis连接工厂在spring-redis.xml中定义 
+			, serializer="jdkSerializationRedisSerializer" 序列化在spring-redis.xml中定义, channel="toDicRedisOutChannel" 
+			输入channel -->
+	</int-redis:outbound-channel-adapter>
+</beans>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.color.mail.mailuser.dao">
+
+	<sql id="columns">
+		id, username, mail, enabled, fail_count, mail_md5
+	</sql>
+	<sql id="vals">
+		#{id}, #{username}, #{mail}, #{enabled},
+		#{fail_count},#{mailMD5}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="username != null and username != ''">
+			and username = #{username}
+		</if>
+		<if test="mail != null and mail != ''">
+			and mail = #{mail}
+		</if>
+		<if test="enabled != null">
+			and enabled = #{enabled}
+		</if>
+		<if test="fail_count != null">
+			and fail_count = #{fail_count}
+		</if>
+		<if test="mailMD5 != null and mailMD5 != ''">
+			and mail_md5 = #{mailMD5}
+		</if>
+	</sql>
+
+	<insert id="saveMailUser" parameterType="org.color.mail.mailuser.entity.MailUser"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into t_mail_user (
+		<include refid="columns" />
+		)
+		values (
+		<include refid="vals" />
+		)
+	</insert>
+
+	<delete id="deleteMailUser">
+		delete from t_mail_user
+		where id=#{id}
+	</delete>
+
+	<delete id="deleteByExampleMailUser">
+		delete from t_mail_user
+		where 1=1
+		<include refid="conds" />
+	</delete>
+
+	<select id="loadMailUser" resultType="org.color.mail.mailuser.entity.MailUserVo">
+		select
+		<include refid="columns" />
+		from t_mail_user
+		where id=#{id}
+	</select>
+
+	<select id="selectMailUser" resultType="org.color.mail.mailuser.entity.MailUserVo">
+		select
+		<include refid="columns" />
+		from t_mail_user
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateMailUser">
+		update t_mail_user
+		<set>
+			id=#{id},
+			username=#{username},
+			mail=#{mail},
+			enabled=#{enabled},
+			fail_count=#{fail_count},
+			mail_md5=#{mailMD5}
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateIgnoreNullMailUser">
+		update t_mail_user
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="username != null and username != ''">
+				username=#{username},
+			</if>
+			<if test="mail != null and mail != ''">
+				mail = #{mail},
+			</if>
+			<if test="enabled != null">
+				enabled = #{enabled},
+			</if>
+			<if test="fail_count != null">
+				fail_count = #{fail_count},
+			</if>
+			<if test="mailMD5 != null and mailMD5 != ''">
+				mail_md5 = #{mailMD5}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateByExampleMailUser">
+		update t_mail_user
+		<set>
+			<if test="id != null and id != ''">
+				id=#{id},
+			</if>
+			<if test="username != null and username != ''">
+				username=#{username},
+			</if>
+			<if test="mail != null and mail != ''">
+				mail = #{mail},
+			</if>
+			<if test="enabled != null">
+				enabled = #{enabled},
+			</if>
+			<if test="fail_count != null">
+				fail_count = #{fail_count},
+			</if>
+			<if test="mailMD5 != null and mailMD5 != ''">
+				mail_md5 = #{mailMD5}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

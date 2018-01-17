@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<bean id="mybatisDao" class="org.roof.excel.support.MybatisDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		<property name="dbType" value="mysql" />
+	</bean>
+	<bean id="ecellXslDb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="id" />
+					<property name="title" value="id" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="c_gklx" />
+					<property name="title" value="格口类型" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="c_gksbzt" />
+					<property name="title" value="格口设备状态" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="c_gkzt" />
+					<property name="title" value="格口状态" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="E" />
+					<property name="dbcol" value="v_cd" />
+					<property name="title" value="长" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="F" />
+					<property name="dbcol" value="v_gd" />
+					<property name="title" value="高" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="G" />
+					<property name="dbcol" value="v_gkdh" />
+					<property name="title" value="格口代号" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="H" />
+					<property name="dbcol" value="v_kd" />
+					<property name="title" value="宽" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="I" />
+					<property name="dbcol" value="c_col" />
+					<property name="title" value="列" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="J" />
+					<property name="dbcol" value="c_row" />
+					<property name="title" value="行" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="K" />
+					<property name="dbcol" value="ecabinet_id" />
+					<property name="title" value="柜" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="L" />
+					<property name="dbcol" value="aux_ecabinet_id" />
+					<property name="title" value="辅柜" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="M" />
+					<property name="dbcol" value="c_gklb" />
+					<property name="title" value="格口类别" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

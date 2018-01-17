@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="roof-webapp">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="roof-druid-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-druid/roof-druid">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-commons-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-commons/roof-commons">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-spring-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-spring/roof-spring">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-dao-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-dao-impl/roof-web-user-dao-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-entity-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-entity/roof-web-user-entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-dao-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-dao-api/roof-web-user-dao-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-dataaccess-mybatis-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-dataaccess-mybatis/roof-dataaccess-mybatis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-service-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-service-impl/roof-web-user-service-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-service-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-service-api/roof-web-user-service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-org-dao-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-org-dao-api/roof-web-org-dao-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-dictionary-dao-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-dictionary-dao-impl/roof-web-dictionary-dao-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-dataaccess-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-dataaccess-api/roof-dataaccess-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-dictionary-dao-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-dictionary-dao-api/roof-web-dictionary-dao-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-dictionary-entity-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-dictionary-entity/roof-web-dictionary-entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-dictionary-service-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-dictionary-service-impl/roof-web-dictionary-service-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-dictionary-service-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-dictionary-service-api/roof-web-dictionary-service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-menu-dao-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-menu-dao-impl/roof-web-menu-dao-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-menu-dao-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-menu-dao-api/roof-web-menu-dao-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-menu-service-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-menu-service-impl/roof-web-menu-service-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-menu-service-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-menu-service-api/roof-web-menu-service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-menu-entity-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-menu-entity/roof-web-menu-entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-org-dao-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-org-dao-impl/roof-web-org-dao-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-org-entity-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-org-entity/roof-web-org-entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-org-service-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-org-service-impl/roof-web-org-service-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-org-service-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-org-service-api/roof-web-org-service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-session-memcache-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-session-memcache/roof-session-memcache">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-org-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-menu-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-dictionary-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-user-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/slf/?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="roof-webapp"/>
+        <property name="java-output-path" value="/roof-webapp/target/classes"/>
+    </wb-module>
+</project-modules>

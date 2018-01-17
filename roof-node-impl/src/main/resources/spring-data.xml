@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="druidDataSourceFactory" class="com.alibaba.druid.pool.DruidDataSourceFactory" />
+	<bean id="dataSourceContext"
+		class="org.roof.node.jobs.datasource.MapDataSourceContext">
+		<property name="destroyMethod">
+			<map>
+				<entry key="com.alibaba.druid.pool.DruidDataSource" value="close" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="jsonJdbcDataSourceRegister"
+		class="org.roof.node.jobs.datasource.JsonJdbcDataSourceRegister">
+		<property name="dataSourceFactory" ref="druidDataSourceFactory" />
+		<property name="dataSourceContext" ref="dataSourceContext" />
+	</bean>
+
+	<bean id="registerMap" class="java.util.HashMap">
+		<constructor-arg index="0">
+			<map>
+				<entry key="JDBC" value-ref="jsonJdbcDataSourceRegister" />
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>

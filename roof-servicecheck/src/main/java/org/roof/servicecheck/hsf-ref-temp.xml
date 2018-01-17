@@ -1,0 +1,6 @@
+<bean id="#{target}" class="com.taobao.hsf.app.spring.util.HSFSpringConsumerBean"
+	init-method="init">
+	<property name="interfaceName" value="#{interfaceName}" />
+	<property name="version" value="#{version}" />
+	<property name="group" value="#{group}" />
+</bean>

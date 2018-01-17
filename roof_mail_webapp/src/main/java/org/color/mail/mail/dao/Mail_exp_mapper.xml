@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.color.mail.mail.dao">
+	<sql id="columnsAs">
+		t1.id, t1.name, t1.content, t1.send_count, t1.stat
+	</sql>
+
+	<select id="selectMailPage" resultType="org.color.mail.mail.entity.MailVo">
+		select
+		<include refid="columnsAs"/>
+		from
+		t_mail t1
+		join
+		(SELECT
+		id
+		from
+		t_mail
+		where 1=1
+		<!-- 排序字段 默认主键 -->
+		<if test="symbol != null and orderByVal != null">
+			and id ${symbol} #{orderByVal}
+		</if>
+		<include refid="conds" />
+		order by id ${orderByType}
+		limit #{skipRow}, #{limit}) t2
+		where t1.id = t2.id
+	</select>
+	
+	<select id="selectMailCount" resultType="java.lang.Long">
+		select
+		count(id)
+		from t_mail
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+</mapper>

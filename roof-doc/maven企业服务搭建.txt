@@ -1,0 +1,75 @@
+
+二 本地maven环境搭建
+	1.安装eclipse Maven插件,插件地址:http://download.eclipse.org/technology/m2e/releases
+	2.下载Maven http://maven.apache.org/download.html
+	3.eclipse中添加Maven
+		window->prefences 搜索 maven
+		选择installs将刚才下载的Maven加入目录当中
+		选择 user setting将user setting 设置为Maven目录下conf\settings.xml文件
+		点击open file
+	4.配置本地的Maven参数
+		设置本地仓库目录: <settings />标签下添加 <localRepository>E:\resource\m2\repository</localRepository>
+		
+		设置发布组件的用户名密码: settings.servers标签下添加
+		<server>
+			<id>nexus-releases</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+		<server>
+			<id>nexus-snapshots</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>其中id必须与组件pom文件project.distributionManagement.repository.id对应
+		
+		设置默认中央仓库为本地服务器:settings.mirrors标签下添加
+		<mirror>
+			<id>nexus-central</id>
+			<name>nexus central</name>
+			<url>http://134.96.82.216:9090/nexus/content/repositories/central</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+		
+		设置访问本地仓库:settings.profiles标签下添加
+			<profile>
+				<id>dev</id>
+				<repositories>
+					<repository>
+						<id>public</id>
+						<name>Public Repositories</name>
+						<url>http://134.96.82.216:9090/nexus/content/groups/public</url>
+						<layout>default</layout>
+						<releases>
+							<enabled>true</enabled>
+						</releases>
+						<snapshots>
+							<enabled>true</enabled>
+						</snapshots>
+					</repository>
+				</repositories>
+			</profile>
+			在settings.activeProfiles标签下添加<activeProfile>dev</activeProfile>启用本地仓库配置
+		其中id name url都和nexus中的仓库配置相对应
+
+四 maven Web项目调试 
+        1.安装run-jetty-run插件
+        2.项目上右键run as jetty 五 maven多项目整合	
+		
+五 jetty多webcontext整合(jetty7)
+    添加WEB-INF/jetty-web.xml 配置文件, 内容如下
+<?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<Set name="baseResource">
+		<New class="org.eclipse.jetty.util.resource.ResourceCollection">
+			<Arg>
+				<Array type="java.lang.String">
+					<Item>src\main\webapp</Item>
+                                        <Item>..\org\src\main\webapp</Item>
+                                        <Item>......</Item>
+				</Array>
+			</Arg>
+		</New>
+	</Set>
+</Configure>
+

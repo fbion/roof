@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/tx 
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailSender2" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant002@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailSender3" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant003@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailSender4" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant004@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="mailSender5" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant005@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailSender6" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant006@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailSender7" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant007@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailSender8" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant008@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="mailSender9" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant009@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="mailSender10" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="consultant010@fpaworld.com" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->
+				<prop key="mail.smtp.timeout">3000</prop>
+				<prop key="mail.smtp.connectiontimeout">3000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailSenders" class="java.util.ArrayList">
+		<constructor-arg index="0">
+			<list>
+				<ref local="mailSender" />
+				<ref local="mailSender2" />
+				<ref local="mailSender3" />
+				<ref local="mailSender4" />
+				<ref local="mailSender5" />
+				<ref local="mailSender6" />
+				<ref local="mailSender7" />
+				<ref local="mailSender8" />
+				<ref local="mailSender9" />
+				<ref local="mailSender10" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+
+
+
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ConcurrentTaskScheduler" />
+
+	<bean id="mybatisDao" class="org.roof.excel.support.MybatisDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		<property name="dbType" value="mysql" />
+	</bean>
+
+	<bean id="ecellXslDb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="username" />
+					<property name="title" value="用户名" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="mail" />
+					<property name="title" value="邮箱" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+			</value>
+		</property>
+	</bean>
+</beans>

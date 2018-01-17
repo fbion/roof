@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.roof.web.org.dao">
+	<sql id="columnsAs">
+		t1.id, t1.name, t1.lvl, t1.seq, t1.parent_id, t1.leaf,
+		t1.usable
+	</sql>
+
+	<select id="selectOrganizationPage" resultType="org.roof.web.org.entity.Organization">
+		select
+		<include refid="columnsAs" />
+		from
+		s_organization t1
+		join
+		(SELECT
+		id
+		from
+		s_organization t1
+		where 1=1
+		<include refid="conds" />
+		order by id desc
+		limit #{skipRow}, #{limit}) t2
+		where t1.id =
+		t2.id
+	</select>
+
+	<select id="selectOrganizationCount" resultType="java.lang.Long">
+		select
+		count(id)
+		from s_organization
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+
+	<select id="findOrgByParent" parameterType="java.util.Map"
+		resultType="org.roof.web.org.entity.Organization">
+		select
+		<include refid="columnsAs" />
+		from s_organization t1 where 1=1
+		<if test="parentId != null">
+			and parent_id = #{parentId}
+		</if>
+		<if test="lvl != null">
+			and lvl = #{lvl}
+		</if>
+		<if test="usable != null">
+			and usable = #{usable}
+		</if>
+		order by seq,id
+	</select>
+
+	<select id="childrenCount" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(id) from
+		s_organization where parent_id =
+		#{parentId}
+	</select>
+
+	<select id="selectOrgIds" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(id) from
+		s_organization where parent_id =
+		#{parentId}
+	</select>
+</mapper>

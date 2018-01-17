@@ -1,0 +1,8 @@
+<bean id="#{target}Provider" class="com.taobao.hsf.app.spring.util.HSFSpringProviderBean"
+	init-method="init">
+	<property name="serviceInterface"
+		value="#{interfaceName}" />
+	<property name="serviceVersion" value="#{version}" />
+	<property name="serviceGroup" value="#{group}" />
+	<property name="target" ref="#{target}" />
+</bean>

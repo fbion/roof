@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.roof.web.dictionary.entity">
+	<class name="Dictionary" table="s_dictionary">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<property name="type" />
+		<property name="val" />
+		<property name="text" />
+		<property name="seq">
+			<column name="seq" sql-type="int" length="11" />
+		</property>
+		<property name="active">
+			<column name="active" sql-type="char" length="1" />
+		</property>
+		<property name="description" />
+	</class>
+</hibernate-mapping>

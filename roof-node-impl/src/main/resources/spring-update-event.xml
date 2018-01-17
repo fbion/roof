@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:int-redis="http://www.springframework.org/schema/integration/redis"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/integration
+   http://www.springframework.org/schema/integration/spring-integration.xsd
+   http://www.springframework.org/schema/integration/twitter
+   http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+   http://www.springframework.org/schema/integration/stream
+   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+   http://www.springframework.org/schema/integration/jdbc
+   http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+   http://www.springframework.org/schema/integration/redis
+   http://www.springframework.org/schema/integration/redis/spring-integration-redis.xsd">
+
+	<!-- 创建事件发布通道 -->
+	<int:channel id="dbUpdateEventChannel" />
+	<int-redis:outbound-channel-adapter
+		topic="dbUpdateEvent" connection-factory="jredisConnectionFactory"
+		serializer="jdkSerializationRedisSerializer" channel="dbUpdateEventChannel">
+	</int-redis:outbound-channel-adapter>
+
+	<!-- 创建事件监听通道 -->
+	<int-redis:inbound-channel-adapter
+		channel="dbUpdateEventListner" topics="dbUpdateEvent"
+		connection-factory="jredisConnectionFactory" serializer="jdkSerializationRedisSerializer" />
+	<int:channel id="dbUpdateEventListner" />
+	<int:outbound-channel-adapter ref="synDataUpdateEventMessageHandler"
+		channel="dbUpdateEventListner" />
+		
+	<!-- 数据更新事件处理 -->
+	<bean id="synDataUpdateEventMessageHandler" class="org.roof.druid.handler.SynDataUpdateEventMessageHandler">
+		<property name="dataSources"><!-- 需要同步的数据源 -->
+			<array>
+				<bean class="com.alibaba.druid.pool.DruidDataSource"
+					init-method="init" destroy-method="close">
+					<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+					<property name="url"
+						value="jdbc:mysql://rds98nq8ekpjsgzzrcah8.mysql.rds.aliyuncs.com:3306/crm_bc_dev?useUnicode=true&amp;characterEncoding=utf-8" />
+					<property name="username" value="crm_bc_dev" />
+					<property name="password" value="Dtt12345678" />
+					<property name="maxActive" value="1" />
+					<property name="initialSize" value="1" />
+					<property name="timeBetweenEvictionRunsMillis" value="60000" />
+					<property name="minEvictableIdleTimeMillis" value="300000" />
+					<property name="validationQuery" value="SELECT 'z'" />
+					<property name="testWhileIdle" value="true" />
+					<property name="testOnBorrow" value="false" />
+					<property name="testOnReturn" value="false" />
+				</bean>
+			</array>
+		</property>
+	</bean>
+</beans>

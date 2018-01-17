@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:reference id="resourceDao"
+		interface="org.roof.web.resource.dao.api.IResourceDao" />
+	<dubbo:reference id="userDao"
+		interface="org.roof.web.user.dao.api.IUserDao" />
+	<dubbo:reference id="roleDao"
+		interface="org.roof.web.role.dao.api.IRoleDao" />
+
+	<dubbo:reference id="dictionaryDao"
+		interface="org.roof.web.dictionary.dao.api.IDictionaryDao" />
+	<dubbo:reference id="dictionaryService"
+		interface="org.roof.web.dictionary.service.api.IDictionaryService" />
+	<dubbo:reference id="dictionaryRelService"
+		interface="org.roof.web.dictionary.service.api.IDictionaryRelService" />
+
+	<dubbo:reference id="menuDao"
+		interface="org.roof.web.menu.dao.api.IMenuDao" />
+	<dubbo:reference id="menuService"
+		interface="org.roof.web.menu.service.api.IMenuService" />
+	<dubbo:reference id="menuFilter"
+		interface="org.roof.web.menu.service.api.IMenuFilter" />
+
+	<dubbo:reference id="orgDao" interface="org.roof.web.org.dao.api.IOrgDao" />
+	<dubbo:reference id="orgService"
+		interface="org.roof.web.org.service.api.IOrgService" />
+
+	<dubbo:reference id="resourceService"
+		interface="org.roof.web.resource.service.api.IResourceService" />
+	<dubbo:reference id="resourcesUtils"
+		interface="org.roof.web.resource.service.api.IResourcesUtils" />
+	<dubbo:reference id="roleService"
+		interface="org.roof.web.role.service.api.IRoleService" />
+
+	<dubbo:reference id="userService"
+		interface="org.roof.web.user.service.api.IUserService" />
+
+	<dubbo:reference interface="org.roof.web.log.dao.api.ILoginLogDao"
+		id="loginLogDao" timeout="60000" />
+	<dubbo:reference interface="org.roof.web.log.service.api.ILoginLogService"
+		id="loginLogService" timeout="60000" />
+
+	<!-- 文件上传下载 -->
+	<dubbo:reference id="fileManager" interface="org.roof.fileupload.api.FileManager" />
+	<dubbo:reference id="fileService" interface="org.roof.fileupload.api.FileService" />
+	<dubbo:reference id="fileInfoService" interface="org.roof.fileupload.api.FileInfoService" />
+	
+	<!-- excel导入导出 -->
+	<dubbo:reference id="mybatisDao" interface="org.roof.excel.core.ExcelDao" timeout="60000" />
+</beans>

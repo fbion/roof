@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="memcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean">
+		<property name="protocol" value="BINARY" />
+		<property name="servers" value="10.80.8.243:11211" />
+	</bean>
+	<bean id="authDescriptor" class="net.spy.memcached.auth.AuthDescriptor">
+		<constructor-arg index="0">
+			<array>
+				<value>PLAIN</value>
+			</array>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<bean class="net.spy.memcached.auth.PlainCallbackHandler">
+				<constructor-arg index="0" value="" />
+				<constructor-arg index="1" value="" />
+			</bean>
+		</constructor-arg>
+	</bean>
+</beans>

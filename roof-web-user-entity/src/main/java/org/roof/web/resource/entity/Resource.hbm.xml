@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.roof.web.resource.entity">
+	<class name="Resource" table="s_resource" discriminator-value="Resource">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<discriminator column="dtype" type="string" />
+		<property name="name" />
+		<property name="pattern" />
+		<property name="description" />
+		<set name="baseRole" table="s_s_role_resource_rel" fetch="join"
+			lazy="false">
+			<key column="resource_id" />
+			<many-to-many class="org.roof.web.role.entity.BaseRole"
+				column="role_id" />
+		</set>
+		<subclass name="Module" discriminator-value="Module">
+			<property name="identify" />
+			<property name="path" />
+			<property name="seq" />
+			<property name="lvl" />
+			<many-to-one name="parent" column="parent_id"
+				class="org.roof.web.resource.entity.Module" />
+			<property name="leaf" />
+			<subclass name="Privilege" discriminator-value="Privilege">
+				<property name="returnExample" />
+				<property name="remark" />
+				<property name="format" />
+			</subclass>
+		</subclass>
+		<!-- <subclass name="QueryResource" discriminator-value="QueryResource"> 
+			<subclass name="QueryFilterResource" discriminator-value="QueryFilterResource"> 
+			<property name="useSpel" /> <property name="criteria" /> </subclass> </subclass> -->
+	</class>
+</hibernate-mapping>

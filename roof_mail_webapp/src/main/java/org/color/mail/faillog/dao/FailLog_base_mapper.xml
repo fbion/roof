@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.color.mail.faillog.dao">
+
+	<sql id="columns">
+		id, mail, mail_id, msg, create_time
+	</sql>
+	<sql id="vals">
+		#{id}, #{mail}, #{mail_id}, #{msg}, #{create_time}
+	</sql>
+	<sql id="conds">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="mail != null and mail != ''">
+			and mail = #{mail}
+		</if>
+		<if test="mail_id != null and mail_id != ''">
+			and mail_id = #{mail_id}
+		</if>
+		<if test="msg != null and msg != ''">
+			and msg = #{msg}
+		</if>
+		<if test="create_time != null">
+			and create_time = #{create_time}
+		</if>
+	</sql>
+
+	<insert id="saveFailLog" parameterType="org.color.mail.faillog.entity.FailLog" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into t_fail_log (<include refid="columns" />) 
+		values (<include refid="vals" />)
+	</insert>
+
+	<delete id="deleteFailLog">
+		delete from t_fail_log
+		where id=#{id} 
+	</delete>
+
+	<delete id="deleteByExampleFailLog">
+		delete from t_fail_log
+		where 1=1
+		<include refid="conds" />
+	</delete>
+	
+	<select id="loadFailLog" resultType="org.color.mail.faillog.entity.FailLogVo">
+		select 
+		<include refid="columns"/>
+		from t_fail_log
+		where id=#{id} 
+	</select>
+	
+	<select id="selectFailLog" resultType="org.color.mail.faillog.entity.FailLogVo">
+		select 
+		<include refid="columns"/>
+		from t_fail_log
+		where 1=1
+		<include refid="conds" />
+	</select>
+
+	<update id="updateFailLog">
+		update t_fail_log
+		<set>
+			id=#{id}, 
+			mail=#{mail}, 
+			mail_id=#{mail_id}, 
+			msg=#{msg}, 
+			create_time=#{create_time}
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateIgnoreNullFailLog">
+		update t_fail_log
+		<set>
+		<if test="id != null and id != ''">
+			id=#{id}, 
+		</if>
+		<if test="mail != null and mail != ''">
+			mail=#{mail}, 
+		</if>
+		<if test="mail_id != null and mail_id != ''">
+			mail_id=#{mail_id}, 
+		</if>
+		<if test="msg != null and msg != ''">
+			msg=#{msg}, 
+		</if>
+		<if test="create_time != null">
+			create_time=#{create_time}
+		</if>
+		</set>
+		where id=#{id} 
+	</update>
+
+	<update id="updateByExampleFailLog">
+		update t_fail_log
+		<set>
+			<if test="id != null and id != ''">
+			id=#{id}, 
+			</if>
+			<if test="mail != null and mail != ''">
+			mail=#{mail}, 
+			</if>
+			<if test="mail_id != null and mail_id != ''">
+			mail_id=#{mail_id}, 
+			</if>
+			<if test="msg != null and msg != ''">
+			msg=#{msg}, 
+			</if>
+			<if test="create_time != null">
+			create_time=#{create_time}
+			</if>
+		</set>
+		where 1=1
+		<include refid="conds" />
+	</update>
+
+</mapper>

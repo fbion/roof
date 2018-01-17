@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<bean id="mybatisDao" class="org.roof.excel.support.MybatisDao">
+		<property name="sqlSessionTemplate" ref="fnSqlSessionTemplate" />
+		<property name="jdbcTemplate" ref="fnJdbcTemplate" />
+		<property name="dbType" value="mysql" />
+	</bean>
+	<bean id="groupNumByDayGidxslDb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="year" />
+					<property name="title" value="年份" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="month" />
+					<property name="title" value="年份" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="day" />
+					<property name="title" value="日期" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="gid" />
+					<property name="title" value="商品id" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="E" />
+					<property name="dbcol" value="gname" />
+					<property name="title" value="商品名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="F" />
+					<property name="dbcol" value="gspec" />
+					<property name="title" value="规格" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="G" />
+					<property name="dbcol" value="gnum" />
+					<property name="title" value="商品数量" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="exportGroupOrderStatDay" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="stat_day" />
+					<property name="title" value="统计日" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="store_id" />
+					<property name="title" value="提货点id" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="store_name" />
+					<property name="title" value="提货点名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="order_num" />
+					<property name="title" value="订单数量" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="export_order_ckd_xsldb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="store_id" />
+					<property name="title" value="提货点" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="pid" />
+					<property name="title" value="套餐id" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="pname" />
+					<property name="title" value="套餐名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="pnum" />
+					<property name="title" value="数量" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- 导出出库单 -->
+	<bean id="exportPNumXslDb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="stat_day" />
+					<property name="title" value="统计日期" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="store_id" />
+					<property name="title" value="提货点id" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="store_name" />
+					<property name="title" value="提货点名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="pid" />
+					<property name="title" value="套餐id" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="E" />
+					<property name="dbcol" value="pname" />
+					<property name="title" value="套餐名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="F" />
+					<property name="dbcol" value="pnum" />
+					<property name="title" value="套餐数量" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="groupByOrderByStatusDayXslDb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="status_date" />
+					<property name="title" value="统计日期" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="status" />
+					<property name="title" value="状态" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="store_id" />
+					<property name="title" value="提货点" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="store_name" />
+					<property name="title" value="提货点名称" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="E" />
+					<property name="dbcol" value="order_count" />
+					<property name="title" value="订单数量" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="F" />
+					<property name="dbcol" value="totalprices" />
+					<property name="title" value="订单总金额" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="groupByOrderByPaymentStatusDayXslDb" class="org.roof.excel.config.XslDb">
+		<property name="columns">
+			<list>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="A" />
+					<property name="dbcol" value="status_date" />
+					<property name="title" value="统计日期" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="B" />
+					<property name="dbcol" value="payment" />
+					<property name="title" value="付款" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="C" />
+					<property name="dbcol" value="status" />
+					<property name="title" value="状态" />
+				</bean>
+				<bean class="org.roof.excel.config.Column">
+					<property name="xslcol" value="D" />
+					<property name="dbcol" value="order_count" />
+					<property name="title" value="订单数量" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

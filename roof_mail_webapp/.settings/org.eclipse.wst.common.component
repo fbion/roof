@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="mail">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <dependent-module archiveName="roof-excel-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-excel/roof-excel">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-file-default-impl-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-file-default-impl/roof-file-default-impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-file-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-file/roof-file">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-commons-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-commons/roof-commons">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-dao-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-dao-api/roof-web-user-dao-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-web-user-service-api-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-web-user-service-api/roof-web-user-service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="roof-spring-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/roof-spring/roof-spring">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-cache-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-org-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-dictionary-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-menu-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/roof-web-user-webapp?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/slf/?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="mail"/>
+        <property name="java-output-path" value="/mail/build/classes"/>
+    </wb-module>
+</project-modules>
